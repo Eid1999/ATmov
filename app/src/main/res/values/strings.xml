@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Pat_1</string>
+    <string name="edit_message">Escolha uma opção:</string>
+    <string name="sensors">Sensors</string>
+    <string name="threshold">Alarm Threshold</string>
+    <string name="disable">Disable Alarms</string>
+    <string name="max_min">Maximus and Minimums</string>
+    <string name="config">Preserve configuration</string>
+    <string name="rep">Create repository</string>
+    <string name="show">Show repository</string>
 </resources>
