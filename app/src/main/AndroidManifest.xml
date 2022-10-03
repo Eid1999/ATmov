@@ -13,6 +13,14 @@
         android:theme="@style/Theme.Pat_1"
         tools:targetApi="31">
         <activity
+            android:name=".threshold_alarm"
+            android:parentActivityName=".MainActivity">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".SensorActivity"
             android:exported="false">
             <meta-data

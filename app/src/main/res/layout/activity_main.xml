@@ -22,6 +22,7 @@
         android:id="@+id/button2"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
+        android:onClick="change_threshold"
         android:text="@string/threshold"
         app:layout_constraintBottom_toTopOf="@+id/button3"
         app:layout_constraintEnd_toEndOf="parent"

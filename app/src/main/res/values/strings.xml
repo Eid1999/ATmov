@@ -8,4 +8,8 @@
     <string name="config">Preserve Configuration</string>
     <string name="rep">Create Repository</string>
     <string name="show">Show Repository</string>
+    <string name="add_min">min</string>
+    <string name="add_max">max</string>
+    <string name="title_threshold">Specify the thresholds of the alarms:</string>
+    <string name="ambient_temperature">Ambient Temperature (ºC)</string>
 </resources>

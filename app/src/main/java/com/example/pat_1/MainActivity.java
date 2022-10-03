@@ -30,12 +30,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         senseManage = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
     }
-    /** Called when the user taps the Send button */
+    /** Called when the user taps the Show Sensors button */
     public void show_sensors(View view) {
         Intent intent = new Intent(this, SensorActivity.class);
         startActivity(intent);
-
     }
+
+    /** Called when the user taps the Alarm Threshold button */
+    public void change_threshold(View view) {
+        Intent intent = new Intent(this, threshold_alarm.class);
+        startActivity(intent);
+    }
+
+
 
 }
 
