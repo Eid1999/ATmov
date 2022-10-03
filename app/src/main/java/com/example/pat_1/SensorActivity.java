@@ -11,6 +11,8 @@ import android.hardware.SensorEventListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
 
 public class SensorActivity extends Activity implements SensorEventListener {
     private SensorManager sensorManager;
@@ -55,27 +57,51 @@ public class SensorActivity extends Activity implements SensorEventListener {
         String envInfo;
         int currType=event.sensor.getType();
 
-
-
         switch(currType){
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
                 envInfo=sensorValue+" Celsius";
-
                 TextView txtView = findViewById(R.id.txtTEMP);
                 txtView.setText(" "+envInfo);
+                //if (current time += 1 minute) <= repository[0][0]{
+                //      temp_repo.remove(9);
+                //      temp_repo.add(envInfo)
+                //}
                 break;
+
             case Sensor.TYPE_LIGHT:
                 envInfo=sensorValue+" lm";
                 TextView txtView2 = findViewById(R.id.txtLIGHT);
                 txtView2.setText(" "+envInfo);
+
+                //if (current time += 1 minute) <= repository[0][0]{
+                //      light_repo.remove(9);
+                //      light_repo.add(envInfo)
+                //}
+
                 break;
             case Sensor.TYPE_RELATIVE_HUMIDITY:
                 envInfo=sensorValue+" percent humidity";
                 TextView txtView3 = findViewById(R.id.txtHUM);
                 txtView3.setText(" "+envInfo);
+
+                //if (current time += 1 minute) <= repository[0][0]{
+                //      humid_repo.remove(9);
+                //      humid_repo.add(envInfo)
+                //}
+
                 break;
             default: break;
         }
+
+        try {
+            TimeUnit.MILLISECONDS.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 
     @Override
