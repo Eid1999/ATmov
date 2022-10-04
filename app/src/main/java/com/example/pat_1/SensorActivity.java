@@ -93,12 +93,6 @@ public class SensorActivity extends Activity implements SensorEventListener {
             default: break;
         }
 
-        try {
-            TimeUnit.MILLISECONDS.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
 
 
 

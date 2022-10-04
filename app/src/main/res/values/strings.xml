@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Pat_1</string>
-    <string name="edit_message">Escolha uma opção:</string>
+    <string name="edit_message">Welcome Mr Wheather</string>
     <string name="sensors">Show Sensors</string>
     <string name="threshold">Alarm Threshold</string>
     <string name="disable">Disable Alarms</string>
