@@ -12,4 +12,7 @@
     <string name="add_max">max</string>
     <string name="title_threshold">Specify the thresholds of the alarms:</string>
     <string name="ambient_temperature">Ambient Temperature (ºC)</string>
+    <string name="humidity">Humidity (%)</string>
+    <string name="luminosity">Luminosity (Lux)</string>
+    <string name="active_label">Active</string>
 </resources>
