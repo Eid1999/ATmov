@@ -34,6 +34,7 @@ public class SensorActivity extends Activity implements SensorEventListener {
         hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
 
 
+
     }
     protected void onResume() {
         super.onResume();
@@ -91,6 +92,7 @@ public class SensorActivity extends Activity implements SensorEventListener {
 
                 break;
             default: break;
+
         }
 
 
