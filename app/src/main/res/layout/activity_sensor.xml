@@ -4,56 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#22C39D"
     tools:context=".SensorActivity">
 
     <TextView
-        android:id="@+id/txtTEMP"
-        android:layout_width="145dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="temp"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
-
-    <TextView
         android:id="@+id/txtLIGHT"
-        android:layout_width="145dp"
+        android:layout_width="90dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="temp"
+        android:layout_marginEnd="70dp"
+        android:background="@android:drawable/editbox_background"
+        android:gravity="center"
+        android:text="Light"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/txtTEMP3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/txtHUM"
+        app:layout_constraintTop_toTopOf="@+id/txtTEMP3" />
 
     <TextView
         android:id="@+id/txtHUM"
-        android:layout_width="145dp"
+        android:layout_width="90dp"
         android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="temp"
+        android:layout_marginEnd="70dp"
+        android:background="@android:drawable/editbox_background"
+        android:gravity="center"
+        android:text="Huminity"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/txtTEMP5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintTop_toTopOf="@+id/txtTEMP5" />
+
+    <TextView
+        android:id="@+id/txtTEMP"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="70dp"
+        android:background="@android:drawable/editbox_background"
+        android:gravity="center"
+        android:text="Temperature"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtTEMP2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtTEMP2"
+        app:layout_constraintStart_toStartOf="@+id/txtLIGHT"
+        app:layout_constraintTop_toTopOf="@+id/txtTEMP2" />
+
+    <TextView
+        android:id="@+id/txtTEMP2"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Temperature:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtTEMP3"
+        app:layout_constraintEnd_toStartOf="@+id/txtTEMP"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.309" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTEMP3"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="92dp"
+        android:gravity="center"
+        android:text="Light:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtTEMP5"
+        app:layout_constraintEnd_toEndOf="@+id/txtTEMP2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTEMP2" />
+
+    <TextView
+        android:id="@+id/txtTEMP5"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="92dp"
+        android:gravity="center"
+        android:text="Huminity:"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtTEMP3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTEMP3" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

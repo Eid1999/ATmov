@@ -55,7 +55,7 @@ public class Sensors extends Service implements SensorEventListener {
 
         switch(currType){
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
-                Stemp=sensorValue+" Celsius";
+                Stemp=sensorValue+" ºC";
                 intent.putExtra("Stemp", Stemp);
                 intent.putExtra("Class","Temp");
 
@@ -80,7 +80,7 @@ public class Sensors extends Service implements SensorEventListener {
 
                 break;
             case Sensor.TYPE_RELATIVE_HUMIDITY:
-                Shum=sensorValue+" percent humidity";
+                Shum=sensorValue+" %";
                 intent.putExtra("Shum", Shum);
                 intent.putExtra("Class","Humidity");
 
