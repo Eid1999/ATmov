@@ -2,6 +2,9 @@ package com.example.pat_1;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.content.Context;
@@ -11,10 +14,12 @@ import android.hardware.SensorEventListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import java.util.concurrent.TimeUnit;
 
 
-public class SensorActivity extends Activity implements SensorEventListener {
+public class SensorActivity extends Activity{
     private SensorManager sensorManager;
     public Sensor envSense,temp,light, hum;
 
@@ -25,108 +30,58 @@ public class SensorActivity extends Activity implements SensorEventListener {
         setContentView(R.layout.activity_sensor);
 
 
-        // Get an instance of the sensor service, and use that to get an instance of
-        // a particular sensor.
-
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        temp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-
-
 
     }
+    String BUTTON_ACTION = "button";
+
+    @Override
     protected void onResume() {
         super.onResume();
-
-        sensorManager.registerListener(this, temp, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, hum, SensorManager.SENSOR_DELAY_NORMAL);
-
-
-
-
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("Sensors"));
     }
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+
+            String envInfo;
+            String className = intent.getStringExtra("Class");
+            switch (className) {
+
+                case "Temp":
+                    envInfo = intent.getStringExtra("Stemp");
+                    TextView txtView = findViewById(R.id.txtTEMP);
+                    txtView.setText(" " + envInfo);
+
+                    break;
+
+                case "Light":
+                    envInfo = intent.getStringExtra("Slight");
+                    TextView txtView2 = findViewById(R.id.txtLIGHT);
+                    txtView2.setText(" " + envInfo);
 
 
-    public final void onSensorChanged(SensorEvent event) {
-        float sensorValue = event.values[0];
+                    break;
+                case "Humidity":
+                    envInfo = intent.getStringExtra("Shum");
+                    TextView txtView3 = findViewById(R.id.txtHUM);
+                    txtView3.setText(" " + envInfo);
 
 
-        // Do something with this sensor data.
-        String envInfo;
-        int currType=event.sensor.getType();
+                    break;
+                default:
+                    break;
 
-        switch(currType){
-            case Sensor.TYPE_AMBIENT_TEMPERATURE:
-                envInfo=sensorValue+" Celsius";
-                TextView txtView = findViewById(R.id.txtTEMP);
-                txtView.setText(" "+envInfo);
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      temp_repo.remove(9);
-                //      temp_repo.add(envInfo)
-                //}
-                break;
-
-            case Sensor.TYPE_LIGHT:
-                envInfo=sensorValue+" lm";
-                TextView txtView2 = findViewById(R.id.txtLIGHT);
-                txtView2.setText(" "+envInfo);
-
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      light_repo.remove(9);
-                //      light_repo.add(envInfo)
-                //}
-
-                break;
-            case Sensor.TYPE_RELATIVE_HUMIDITY:
-                envInfo=sensorValue+" percent humidity";
-                TextView txtView3 = findViewById(R.id.txtHUM);
-                txtView3.setText(" "+envInfo);
-
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      humid_repo.remove(9);
-                //      humid_repo.add(envInfo)
-                //}
-
-                break;
-            default: break;
-
-        }
+            }
 
 
-
-
-    }
-
+        };
+    };
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        String accuracyMsg = "";
-        switch(accuracy){
-            case SensorManager.SENSOR_STATUS_ACCURACY_HIGH:
-                accuracyMsg="Sensor has high accuracy";
-                break;
-            case SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM:
-                accuracyMsg="Sensor has medium accuracy";
-                break;
-            case SensorManager.SENSOR_STATUS_ACCURACY_LOW:
-                accuracyMsg="Sensor has low accuracy";
-                break;
-            case SensorManager.SENSOR_STATUS_UNRELIABLE:
-                accuracyMsg="Sensor has unreliable accuracy";
-                break;
-            default:
-                break;
-        }
-        Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
-        accuracyToast.show();
+    protected void onDestroy() {
+        // Unregister since the activity is about to be closed.
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
+        super.onDestroy();
     }
-    @Override
-    protected void onPause() {
-        // Be sure to unregister the sensor when the activity pauses.
-        super.onPause();
-        sensorManager.unregisterListener(this);
-    }
+
 
 }
