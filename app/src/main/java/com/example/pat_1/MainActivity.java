@@ -34,11 +34,6 @@ public class MainActivity extends AppCompatActivity {
     public String Slight,Shum,Stemp;
 
 
-
-    //public ArrayList<Float> temp_repo = new ArrayList<Float>();
-    //public ArrayList<Float> light_repo = new ArrayList<Float>();
-    //public ArrayList<Float> humid_repo = new ArrayList<Float>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
