@@ -29,9 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private SensorManager senseManage;
     private Sensor envSense;
 
-    //public ArrayList<Float> temp_repo = new ArrayList<Float>();
-    //public ArrayList<Float> light_repo = new ArrayList<Float>();
-    //public ArrayList<Float> humid_repo = new ArrayList<Float>();
+    /** declare the repositories' ArrayLists where the values will be stored */
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +53,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, threshold_alarm.class);
         startActivity(intent);
     }
-
-
-
 }
-

@@ -8,15 +8,28 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.os.SystemClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.concurrent.TimeUnit;
 
 
 public class SensorActivity extends Activity implements SensorEventListener {
     private SensorManager sensorManager;
     public Sensor envSense,temp,light, hum;
+    float sensorValue;
+    int currType;
+
+    public static RepoStorage repo = new RepoStorage();
+    boolean ext_detected;
+    int repo_size;
+
+    long time_millis;
+
 
 
     @Override
@@ -32,6 +45,8 @@ public class SensorActivity extends Activity implements SensorEventListener {
         temp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+
+
 
 
 
@@ -51,22 +66,48 @@ public class SensorActivity extends Activity implements SensorEventListener {
 
 
     public final void onSensorChanged(SensorEvent event) {
-        float sensorValue = event.values[0];
 
+        sensorValue = event.values[0];
 
         // Do something with this sensor data.
         String envInfo;
-        int currType=event.sensor.getType();
+        currType=event.sensor.getType();
+
+        time_millis = System.currentTimeMillis() + ((event.timestamp- SystemClock.elapsedRealtimeNanos())/1000000L);
+        Timestamp date_time = new Timestamp(time_millis);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String time = sdf.format(date_time);
+
+        repo_size = repo.temp_repo.size();
+        RepoValues new_event = new RepoValues(time, sensorValue, time_millis);
+        ext_detected = false;
 
         switch(currType){
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
                 envInfo=sensorValue+" Celsius";
                 TextView txtView = findViewById(R.id.txtTEMP);
                 txtView.setText(" "+envInfo);
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      temp_repo.remove(9);
-                //      temp_repo.add(envInfo)
-                //}
+
+                if (sensorValue > repo.max_temp.value){
+                    repo.max_temp = new_event;
+                    ext_detected = true;
+                }
+                if (sensorValue < repo.min_temp.value){
+                    repo.min_temp = new_event;
+                    ext_detected = true;
+                }
+
+                if (time_millis + 5000 <= repo.temp_repo.get(repo_size - 1).time_millis){
+
+                    if (repo_size >= 10){
+                        repo.temp_repo.remove(0);
+                    }
+
+                    repo.temp_repo.add(new_event);
+                }
+
+
+
                 break;
 
             case Sensor.TYPE_LIGHT:
@@ -74,10 +115,24 @@ public class SensorActivity extends Activity implements SensorEventListener {
                 TextView txtView2 = findViewById(R.id.txtLIGHT);
                 txtView2.setText(" "+envInfo);
 
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      light_repo.remove(9);
-                //      light_repo.add(envInfo)
-                //}
+                if (sensorValue > repo.max_light.value){
+                    repo.max_light = new_event;
+                    ext_detected = true;
+                }
+                if (sensorValue < repo.min_light.value){
+                    repo.min_light = new_event;
+                    ext_detected = true;
+                }
+
+                if (time_millis + 5000 <= repo.light_repo.get(repo_size - 1).time_millis){
+
+                    if (repo_size >= 10){
+                        repo.light_repo.remove(0);
+                    }
+
+                    repo.light_repo.add(new_event);
+                }
+
 
                 break;
             case Sensor.TYPE_RELATIVE_HUMIDITY:
@@ -85,10 +140,25 @@ public class SensorActivity extends Activity implements SensorEventListener {
                 TextView txtView3 = findViewById(R.id.txtHUM);
                 txtView3.setText(" "+envInfo);
 
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      humid_repo.remove(9);
-                //      humid_repo.add(envInfo)
-                //}
+
+                if (sensorValue > repo.max_humid.value){
+                    repo.max_humid = new_event;
+                    ext_detected = true;
+                }
+                if (sensorValue < repo.min_humid.value){
+                    repo.min_humid = new_event;
+                    ext_detected = true;
+                }
+
+                if (time_millis + 5000 <= repo.humid_repo.get(repo_size - 1).time_millis){
+
+                    if (repo_size >= 10){
+                        repo.humid_repo.remove(0);
+                    }
+
+                    repo.humid_repo.add(new_event);
+                }
+
 
                 break;
             default: break;
