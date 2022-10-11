@@ -9,15 +9,25 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 public class Sensors extends Service implements SensorEventListener {
+
     private static final String DEBUG_TAG = "Sensors";
     private SensorManager sensorManager;
     public Sensor envSense,temp,light, hum;
     public String Slight,Shum,Stemp;
+
+    public static RepoStorage repo = new RepoStorage();
+    boolean ext_detected;
+    int repo_size;
+    long time_millis;
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -44,14 +54,25 @@ public class Sensors extends Service implements SensorEventListener {
 
 
     public final void onSensorChanged(SensorEvent event) {
+
         float sensorValue = event.values[0];
         Intent intent = new Intent("Sensors");
-
-
 
         // Do something with this sensor data.
         String envInfo;
         int currType=event.sensor.getType();
+
+        // REPOSITORY SECTION -> Handle event time and format it to be stored in the Repository
+        time_millis = System.currentTimeMillis() + ((event.timestamp- SystemClock.elapsedRealtimeNanos())/1000000L);
+        Timestamp date_time = new Timestamp(time_millis);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String time = sdf.format(date_time);
+
+        // REPOSITORY SECTION ->
+        repo_size = repo.temp_repo.size();
+        RepoValues new_event = new RepoValues(time, sensorValue, time_millis);
+        ext_detected = false;
+
 
         switch(currType){
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
@@ -59,13 +80,26 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Stemp", Stemp);
                 intent.putExtra("Class","Temp");
 
+                // REPOSITORY SECTION -> Check if new value is higher than all time high
+                if (sensorValue > repo.max_temp.value){
+                    repo.max_temp = new_event;
+                    ext_detected = true;
+                }
+                if (sensorValue < repo.min_temp.value){
+                    repo.min_temp = new_event;
+                    ext_detected = true;
+                }
 
+                // REPOSITORY SECTION -> Store new event and delete oldest one
+                if (time_millis + 5000 <= repo.temp_repo.get(repo_size - 1).time_millis){
 
+                    if (repo_size >= 10){
+                        repo.temp_repo.remove(0);
+                    }
 
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      temp_repo.remove(9);
-                //      temp_repo.add(envInfo)
-                //}
+                    repo.temp_repo.add(new_event);
+                }
+
                 break;
 
             case Sensor.TYPE_LIGHT:
@@ -73,10 +107,25 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Slight", Slight);
                 intent.putExtra("Class","Light");
 
-                //if (current time += 1 minute) <= repository[0][0]{
-                //      light_repo.remove(9);
-                //      light_repo.add(envInfo)
-                //}
+                // REPOSITORY SECTION -> Check if new value is higher than all time high
+                if (sensorValue > repo.max_light.value){
+                    repo.max_light = new_event;
+                    ext_detected = true;
+                }
+                if (sensorValue < repo.min_light.value){
+                    repo.min_light = new_event;
+                    ext_detected = true;
+                }
+
+                // REPOSITORY SECTION -> Store new event and delete oldest one
+                if (time_millis + 5000 <= repo.light_repo.get(repo_size - 1).time_millis){
+
+                    if (repo_size >= 10){
+                        repo.light_repo.remove(0);
+                    }
+
+                    repo.light_repo.add(new_event);
+                }
 
                 break;
             case Sensor.TYPE_RELATIVE_HUMIDITY:
@@ -84,6 +133,25 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Shum", Shum);
                 intent.putExtra("Class","Humidity");
 
+                // REPOSITORY SECTION -> Check if new value is higher than all time high
+                if (sensorValue > repo.max_humid.value){
+                    repo.max_humid = new_event;
+                    ext_detected = true;
+                }
+                if (sensorValue < repo.min_humid.value){
+                    repo.min_humid = new_event;
+                    ext_detected = true;
+                }
+
+                // REPOSITORY SECTION -> Store new event and delete oldest one
+                if (time_millis + 5000 <= repo.humid_repo.get(repo_size - 1).time_millis){
+
+                    if (repo_size >= 10){
+                        repo.humid_repo.remove(0);
+                    }
+
+                    repo.humid_repo.add(new_event);
+                }
 
                 break;
             default: break;
