@@ -2,7 +2,10 @@ package com.example.pat_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Service;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -26,11 +29,15 @@ import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
-    private SensorManager senseManage;
-    private Sensor envSense;
+    private SensorManager sensorManager;
+    public Sensor envSense,temp,light, hum;
+    public String Slight,Shum,Stemp;
 
-    /** declare the repositories' ArrayLists where the values will be stored */
 
+
+    //public ArrayList<Float> temp_repo = new ArrayList<Float>();
+    //public ArrayList<Float> light_repo = new ArrayList<Float>();
+    //public ArrayList<Float> humid_repo = new ArrayList<Float>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +47,18 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
         setContentView(R.layout.activity_main);
-        senseManage = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), Sensors.class );
+        startService(intent);
+
+
+
     }
     /** Called when the user taps the Show Sensors button */
     public void show_sensors(View view) {
         Intent intent = new Intent(this, SensorActivity.class);
+        intent.putExtra("Slight", Slight);// if its int type
+        intent.putExtra("Stemp", Stemp);// if its int type
+        intent.putExtra("Shum", Shum);// if its int type
         startActivity(intent);
     }
 
@@ -53,4 +67,13 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, threshold_alarm.class);
         startActivity(intent);
     }
+
+
+
+
+
 }
+
+
+
+
