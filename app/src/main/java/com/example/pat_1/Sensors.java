@@ -28,6 +28,7 @@ public class Sensors extends Service implements SensorEventListener {
     boolean ext_detected;
     int repo_size[] =  {0, 0, 0};
     long time_millis;
+    public static Alarm Horn = new Alarm();
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -82,6 +83,14 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Stemp", Stemp);
                 intent.putExtra("Class","Temp");
 
+                if (Horn.TempSwitch) {
+                    if (sensorValue < Horn.minTemp) {
+                        onAlarm("minT");
+                    } else if (sensorValue > Horn.maxTemp){
+                        onAlarm("maxT");
+                    }
+                }
+
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_temp.value){
                     repo.max_temp = new_event;
@@ -109,6 +118,14 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Slight", Slight);
                 intent.putExtra("Class","Light");
 
+                if (Horn.LumSwitch) {
+                    if (sensorValue < Horn.minLum) {
+                        onAlarm("minL");
+                    } else if (sensorValue > Horn.maxLum){
+                        onAlarm("maxL");
+                    }
+                }
+
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_light.value){
                     repo.max_light = new_event;
@@ -134,6 +151,14 @@ public class Sensors extends Service implements SensorEventListener {
                 Shum=sensorValue;
                 intent.putExtra("Shum", Shum);
                 intent.putExtra("Class","Humidity");
+
+                if (Horn.HumSwitch) {
+                    if (sensorValue < Horn.minHum) {
+                        onAlarm("minH");
+                    } else if (sensorValue > Horn.maxHum){
+                        onAlarm("maxH");
+                    }
+                }
 
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_humid.value){
@@ -162,10 +187,33 @@ public class Sensors extends Service implements SensorEventListener {
         }
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
-
-
-
-
+    }
+    public void onAlarm (String type) {
+        String accuracyMsg = "";
+        switch(type){
+            case "minT":
+                accuracyMsg="Minimum temperature threshold reached!";
+                break;
+            case "maxT":
+                accuracyMsg="Maximum temperature threshold reached!";
+                break;
+            case "minH":
+                accuracyMsg="Minimum humidity threshold reached!";
+                break;
+            case "maxH":
+                accuracyMsg="Maximum humidity threshold reached!";
+                break;
+            case "minL":
+                accuracyMsg="Minimum luminosity threshold reached!";
+                break;
+            case "maxL":
+                accuracyMsg="Maximum luminosity threshold reached!";
+                break;
+            default:
+                break;
+        }
+        Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+        accuracyToast.show();
     }
 
     @Override

@@ -35,13 +35,10 @@ public class SensorActivity extends Activity{
 
     long time_millis;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
-
 
         // Get an instance of the sensor service, and use that to get an instance of
         // a particular sensor.
@@ -50,10 +47,6 @@ public class SensorActivity extends Activity{
         temp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-
-
-
-
 
     }
     String BUTTON_ACTION = "button";
@@ -75,22 +68,17 @@ public class SensorActivity extends Activity{
                     envInfo = intent.getFloatExtra("Stemp",-1);
                     TextView txtView = findViewById(R.id.txtTEMP);
                     txtView.setText(" " + envInfo +"ºC");
-
                     break;
 
                 case "Light":
                     envInfo = intent.getFloatExtra("Slight",-1);
                     TextView txtView2 = findViewById(R.id.txtLIGHT);
                     txtView2.setText(" " + envInfo +"lm");
-
-
                     break;
                 case "Humidity":
                     envInfo = intent.getFloatExtra("Shum",-1);
                     TextView txtView3 = findViewById(R.id.txtHUM);
                     txtView3.setText(" " + envInfo+"%");
-
-
                     break;
                 default:
                     break;
@@ -100,6 +88,7 @@ public class SensorActivity extends Activity{
 
         };
     };
+
     @Override
     protected void onDestroy() {
         // Unregister since the activity is about to be closed.
