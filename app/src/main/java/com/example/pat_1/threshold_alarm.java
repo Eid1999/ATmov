@@ -2,9 +2,12 @@ package com.example.pat_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -16,8 +19,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 public class threshold_alarm extends AppCompatActivity {
-    float minT = (float) -273.1, maxT = 100, minH = 0, maxH = 100, minL = 0, maxL = 40000;
-    public Intent intent = new Intent(this, Alarm.class);
+    Alarm mService;
+    boolean mBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +28,16 @@ public class threshold_alarm extends AppCompatActivity {
         setContentView(R.layout.activity_threshold_alarm);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(connection);
+        mBound = false;
+    }
 
     public void keepThreshold(View view) {
-
+        Intent intent = new Intent(this, Alarm.class);
+        float [] thresholds = {-273.1f, 100f, 0f, 100f, 0f, 40000f};
         EditText minTemp = (EditText) findViewById(R.id.minTemp);
         EditText maxTemp = (EditText) findViewById(R.id.maxTemp);
         EditText minHum = (EditText) findViewById(R.id.minHum);
@@ -43,27 +53,27 @@ public class threshold_alarm extends AppCompatActivity {
         Switch s3 = (Switch) findViewById(R.id.switch3);
         s3.setChecked(false);
         if (!TextUtils.isEmpty(minTemp.getText().toString())) {
-            minT = Float.parseFloat(minTemp.getText().toString().trim());
+            thresholds[0] = Float.parseFloat(minTemp.getText().toString().trim());
         }
 
         if (!TextUtils.isEmpty(maxTemp.getText().toString())) {
-            maxT = Float.parseFloat(maxTemp.getText().toString().trim());
+            thresholds[1] = Float.parseFloat(maxTemp.getText().toString().trim());
         }
 
         if (!TextUtils.isEmpty(minHum.getText().toString())) {
-            minH = Float.parseFloat(minHum.getText().toString().trim());
+            thresholds[2] = Float.parseFloat(minHum.getText().toString().trim());
         }
 
         if (!TextUtils.isEmpty(maxHum.getText().toString())) {
-            maxH = Float.parseFloat(maxHum.getText().toString().trim());
+            thresholds[3] = Float.parseFloat(maxHum.getText().toString().trim());
         }
 
         if (!TextUtils.isEmpty(minLum.getText().toString())) {
-            minL = Float.parseFloat(minLum.getText().toString().trim());
+            thresholds[4] = Float.parseFloat(minLum.getText().toString().trim());
         }
 
         if (!TextUtils.isEmpty(maxLum.getText().toString())) {
-            maxL = Float.parseFloat(maxLum.getText().toString().trim());
+            thresholds[5] = Float.parseFloat(maxLum.getText().toString().trim());
         }
 
         s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -76,8 +86,31 @@ public class threshold_alarm extends AppCompatActivity {
                 intent.putExtra("s2", isChecked);
             }
         });
-
+        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                intent.putExtra("s3", isChecked);
+            }
+        });
+        intent.putExtra("thresholds", thresholds);
+        bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection connection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            Alarm.LocalBinder binder = (Alarm.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
 }
 
 

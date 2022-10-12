@@ -15,4 +15,5 @@
     <string name="humidity">Humidity (%)</string>
     <string name="luminosity">Luminosity (Lux)</string>
     <string name="active_label">Active</string>
+    <string name="save">Save</string>
 </resources>
