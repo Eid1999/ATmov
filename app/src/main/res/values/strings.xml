@@ -21,4 +21,5 @@
         <item>Humidity</item>
     </string-array>
     <string name="save">Save</string>
+    <string name="no_repo_value">--------</string>
 </resources>
