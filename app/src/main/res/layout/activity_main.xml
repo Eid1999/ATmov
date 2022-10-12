@@ -39,6 +39,7 @@
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFC107"
+        android:onClick="show_repository"
         android:text="@string/show"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"

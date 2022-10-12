@@ -4,6 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#22C39D"
     tools:context=".RepositoryActivity">
 
+    <Spinner
+        android:id="@+id/dropdown_menu"
+        android:layout_width="156dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
+        android:entries="@array/Repositories"
+        android:hapticFeedbackEnabled="false"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hour1"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dropdown_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>
