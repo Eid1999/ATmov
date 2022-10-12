@@ -174,6 +174,10 @@ public class threshold_alarm extends AppCompatActivity {
     public void resetRepo (View view){
         Sensors.repo = new RepoStorage();
     }
+
+    public void goback(View view){
+        finish();
+    }
 }
 
 

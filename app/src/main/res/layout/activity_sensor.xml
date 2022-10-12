@@ -7,6 +7,18 @@
     android:background="#22C39D"
     tools:context=".SensorActivity">
 
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ic_baseline_arrow_back_24"
+        android:onClick="goback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <TextView
         android:id="@+id/txtLIGHT"
         android:layout_width="90dp"

@@ -10,7 +10,7 @@
     <string name="show">Show Repository</string>
     <string name="add_min">min</string>
     <string name="add_max">max</string>
-    <string name="title_threshold">Specify the thresholds of the alarms:</string>
+    <string name="title_threshold">Specify the Thresholds of the Alarms</string>
     <string name="ambient_temperature">Ambient Temperature (ºC)</string>
     <string name="humidity">Humidity (%)</string>
     <string name="luminosity">Luminosity (Lux)</string>
