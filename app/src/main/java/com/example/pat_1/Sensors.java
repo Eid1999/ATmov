@@ -21,7 +21,7 @@ public class Sensors extends Service implements SensorEventListener {
 
     private static final String DEBUG_TAG = "Sensors";
     private SensorManager sensorManager;
-    public Sensor envSense,temp,light, hum;
+    public Sensor envSense,temp , light, hum;
     public float Slight,Shum,Stemp;
 
     public static RepoStorage repo = new RepoStorage();
