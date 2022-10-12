@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class threshold_alarm extends AppCompatActivity {
     public Switch s1,s2,s3;
@@ -53,30 +54,67 @@ public class threshold_alarm extends AppCompatActivity {
         EditText maxLum = (EditText) findViewById(R.id.maxLum);
         EditText minHum = (EditText) findViewById(R.id.minHum);
         EditText maxHum = (EditText) findViewById(R.id.maxHum);
+        String accuracyMsg = "";
 
 
         if (!TextUtils.isEmpty(minTemp.getText().toString())) {
-            Sensors.Horn.minTemp = Float.parseFloat(minTemp.getText().toString().trim());
+            if (Float.parseFloat(minTemp.getText().toString().trim()) < -273.15) {
+                accuracyMsg="Welcome to Absolute Zero";
+                Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+                accuracyToast.show();
+            } else {
+                Sensors.Horn.minTemp = Float.parseFloat(minTemp.getText().toString().trim());
+            }
         }
 
         if (!TextUtils.isEmpty(maxTemp.getText().toString())) {
-            Sensors.Horn.maxTemp = Float.parseFloat(maxTemp.getText().toString().trim());
+            if (Float.parseFloat(maxTemp.getText().toString().trim()) > 1000000000) {
+                accuracyMsg="Too hot";
+                Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+                accuracyToast.show();
+            } else {
+                Sensors.Horn.maxTemp = Float.parseFloat(maxTemp.getText().toString().trim());
+            }
         }
 
         if (!TextUtils.isEmpty(minLum.getText().toString())) {
-            Sensors.Horn.minLum = Float.parseFloat(minHum.getText().toString().trim());
+            if (Float.parseFloat(minLum.getText().toString().trim()) < 0) {
+                accuracyMsg="Invalid Value";
+                Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+                accuracyToast.show();
+            } else {
+                Sensors.Horn.minLum = Float.parseFloat(minHum.getText().toString().trim());
+            }
         }
 
         if (!TextUtils.isEmpty(maxLum.getText().toString())) {
-            Sensors.Horn.maxLum = Float.parseFloat(maxHum.getText().toString().trim());
+            if (Float.parseFloat(maxLum.getText().toString().trim()) >100000000) {
+                accuracyMsg="Invalid Value";
+                Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+                accuracyToast.show();
+            } else {
+                Sensors.Horn.maxLum = Float.parseFloat(maxHum.getText().toString().trim());
+            }
         }
 
         if (!TextUtils.isEmpty(minHum.getText().toString())) {
-            Sensors.Horn.minHum = Float.parseFloat(minLum.getText().toString().trim());
+            if (Float.parseFloat(minHum.getText().toString().trim()) < 0) {
+                accuracyMsg="Invalid Value";
+                Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+                accuracyToast.show();
+            } else {
+                Sensors.Horn.minHum = Float.parseFloat(minLum.getText().toString().trim());
+            }
         }
 
         if (!TextUtils.isEmpty(maxHum.getText().toString())) {
-            Sensors.Horn.maxHum = Float.parseFloat(maxLum.getText().toString().trim());
+            if (Float.parseFloat(maxHum.getText().toString().trim()) >1000000000) {
+                accuracyMsg="Invalid Value";
+                Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+                accuracyToast.show();
+            } else {
+                Sensors.Horn.maxHum = Float.parseFloat(maxLum.getText().toString().trim());
+            }
         }
 
         if(Sensors.Horn.TempSwitch!=s1.isChecked()) {
