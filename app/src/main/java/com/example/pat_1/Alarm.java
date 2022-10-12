@@ -1,16 +1,22 @@
 package com.example.pat_1;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
+import android.widget.Toast;
 
-public class Alarm extends Service {
+public class Alarm {
+
+    public float minTemp, maxTemp, minLum, maxLum, minHum, maxHum;
+    public boolean TempSwitch, LumSwitch, HumSwitch;
+
     public Alarm() {
+        minTemp = -273.1f;
+        maxTemp = 100f;
+        minLum = 0f;
+        maxLum = 40000f;
+        minHum = 0f;
+        maxHum = 100f;
+        TempSwitch = false;
+        LumSwitch = false;
+        HumSwitch = false;
     }
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
 }

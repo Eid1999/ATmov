@@ -2,29 +2,10 @@ package com.example.pat_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Service;
-import android.content.Context;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -43,12 +24,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(getApplicationContext(), Sensors.class );
         startService(intent);
-        Intent intent1 = new Intent(this, Alarm.class);
-        startService(intent1);
-
-
-
-
     }
     /** Called when the user taps the Show Sensors button */
     public void show_sensors(View view) {

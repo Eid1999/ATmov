@@ -22,12 +22,13 @@ public class Sensors extends Service implements SensorEventListener {
     private static final String DEBUG_TAG = "Sensors";
     private SensorManager sensorManager;
     public Sensor envSense,temp,light, hum;
-    public String Slight,Shum,Stemp;
+    public float Slight,Shum,Stemp;
 
     public static RepoStorage repo = new RepoStorage();
     boolean ext_detected;
     int repo_size[] =  {0, 0, 0};
     long time_millis;
+    public static Alarm Horn = new Alarm();
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -78,9 +79,17 @@ public class Sensors extends Service implements SensorEventListener {
 
         switch(currType){
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
-                Stemp=sensorValue+" ºC";
+                Stemp=sensorValue;
                 intent.putExtra("Stemp", Stemp);
                 intent.putExtra("Class","Temp");
+
+                if (Horn.TempSwitch) {
+                    if (sensorValue < Horn.minTemp) {
+                        onAlarm("minT");
+                    } else if (sensorValue > Horn.maxTemp){
+                        onAlarm("maxT");
+                    }
+                }
 
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_temp.value){
@@ -106,9 +115,17 @@ public class Sensors extends Service implements SensorEventListener {
                 break;
 
             case Sensor.TYPE_LIGHT:
-                Slight=sensorValue+" lm";
+                Slight=sensorValue;
                 intent.putExtra("Slight", Slight);
                 intent.putExtra("Class","Light");
+
+                if (Horn.LumSwitch) {
+                    if (sensorValue < Horn.minLum) {
+                        onAlarm("minL");
+                    } else if (sensorValue > Horn.maxLum){
+                        onAlarm("maxL");
+                    }
+                }
 
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_light.value){
@@ -132,9 +149,17 @@ public class Sensors extends Service implements SensorEventListener {
 
                 break;
             case Sensor.TYPE_RELATIVE_HUMIDITY:
-                Shum=sensorValue+" %";
+                Shum=sensorValue;
                 intent.putExtra("Shum", Shum);
                 intent.putExtra("Class","Humidity");
+
+                if (Horn.HumSwitch) {
+                    if (sensorValue < Horn.minHum) {
+                        onAlarm("minH");
+                    } else if (sensorValue > Horn.maxHum){
+                        onAlarm("maxH");
+                    }
+                }
 
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_humid.value){
@@ -163,10 +188,33 @@ public class Sensors extends Service implements SensorEventListener {
         }
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
-
-
-
-
+    }
+    public void onAlarm (String type) {
+        String accuracyMsg = "";
+        switch(type){
+            case "minT":
+                accuracyMsg="Minimum temperature threshold reached!";
+                break;
+            case "maxT":
+                accuracyMsg="Maximum temperature threshold reached!";
+                break;
+            case "minH":
+                accuracyMsg="Minimum humidity threshold reached!";
+                break;
+            case "maxH":
+                accuracyMsg="Maximum humidity threshold reached!";
+                break;
+            case "minL":
+                accuracyMsg="Minimum luminosity threshold reached!";
+                break;
+            case "maxL":
+                accuracyMsg="Maximum luminosity threshold reached!";
+                break;
+            default:
+                break;
+        }
+        Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
+        accuracyToast.show();
     }
 
     @Override

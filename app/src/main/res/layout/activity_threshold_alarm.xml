@@ -14,32 +14,32 @@
         android:layout_marginStart="112dp"
         android:onClick="keepThreshold"
         app:layout_constraintBaseline_toBaselineOf="@+id/active3"
+        android:checked="false"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/maxTemp"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/add_max"
-        android:inputType="numberDecimal"
+        android:imeOptions="actionDone"
+        android:inputType="numberSigned|numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ambient_temp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/minTemp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/minTemp" />
 
     <EditText
         android:id="@+id/maxHum"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/add_max"
+        android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintBaseline_toBaselineOf="@+id/humidity"
+        app:layout_constraintBaseline_toBaselineOf="@+id/minHum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/minHum" />
 
@@ -49,7 +49,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/add_min"
+        android:imeOptions="actionDone"
         android:inputType="numberDecimal"
+        android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBaseline_toBaselineOf="@+id/humidity"
         app:layout_constraintStart_toEndOf="@+id/humidity" />
@@ -58,12 +60,12 @@
         android:id="@+id/maxLum"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/add_max"
+        android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ambient_temp3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/minLum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/minLum" />
 
@@ -73,6 +75,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/add_min"
+        android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBaseline_toBaselineOf="@+id/ambient_temp3"
@@ -129,22 +132,22 @@
         android:id="@+id/minTemp"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:ems="10"
         android:hint="@string/add_min"
         android:imeOptions="actionDone"
-        android:inputType="numberDecimal"
+        android:inputType="numberSigned|numberDecimal"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBaseline_toBaselineOf="@+id/ambient_temp"
         app:layout_constraintStart_toEndOf="@+id/ambient_temp" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
         android:onClick="keepThreshold"
-        android:text="Button"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -155,9 +158,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
+        android:checked="false"
         android:onClick="keepThreshold"
         app:layout_constraintBaseline_toBaselineOf="@+id/active"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:checked="false" />
 
     <Switch
         android:id="@+id/switch2"
@@ -165,6 +170,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
         android:onClick="keepThreshold"
+        android:checked="false"
         app:layout_constraintBaseline_toBaselineOf="@+id/active2"
         app:layout_constraintStart_toStartOf="parent" />
 
