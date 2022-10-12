@@ -59,6 +59,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /** Called when the user taps the Show Repository button */
+    public void show_repository(View view) {
+        Intent intent = new Intent(this, RepositoryActivity.class);
+        startActivity(intent);
+    }
+
 
 
 

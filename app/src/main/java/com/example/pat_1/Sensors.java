@@ -22,11 +22,11 @@ public class Sensors extends Service implements SensorEventListener {
     private static final String DEBUG_TAG = "Sensors";
     private SensorManager sensorManager;
     public Sensor envSense,temp,light, hum;
-    public String Slight,Shum,Stemp;
+    public float Slight,Shum,Stemp;
 
     public static RepoStorage repo = new RepoStorage();
     boolean ext_detected;
-    int repo_size[] = {0, 0, 0};
+    int repo_size[] =  {0, 0, 0};
     long time_millis;
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -78,7 +78,7 @@ public class Sensors extends Service implements SensorEventListener {
 
         switch(currType){
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
-                Stemp=sensorValue+" ºC";
+                Stemp=sensorValue;
                 intent.putExtra("Stemp", Stemp);
                 intent.putExtra("Class","Temp");
 
@@ -105,7 +105,7 @@ public class Sensors extends Service implements SensorEventListener {
                 break;
 
             case Sensor.TYPE_LIGHT:
-                Slight=sensorValue+" lm";
+                Slight=sensorValue;
                 intent.putExtra("Slight", Slight);
                 intent.putExtra("Class","Light");
 
@@ -131,7 +131,7 @@ public class Sensors extends Service implements SensorEventListener {
 
                 break;
             case Sensor.TYPE_RELATIVE_HUMIDITY:
-                Shum=sensorValue+" %";
+                Shum=sensorValue;
                 intent.putExtra("Shum", Shum);
                 intent.putExtra("Class","Humidity");
 

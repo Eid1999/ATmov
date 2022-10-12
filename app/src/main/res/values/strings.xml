@@ -15,5 +15,10 @@
     <string name="humidity">Humidity (%)</string>
     <string name="luminosity">Luminosity (Lux)</string>
     <string name="active_label">Active</string>
+    <string-array name="Repositories">
+        <item>Temperature</item>
+        <item>Luminosity</item>
+        <item>Humidity</item>
+    </string-array>
     <string name="save">Save</string>
 </resources>

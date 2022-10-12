@@ -67,28 +67,28 @@ public class SensorActivity extends Activity{
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
 
-            String envInfo;
+            float envInfo;
             String className = intent.getStringExtra("Class");
             switch (className) {
 
                 case "Temp":
-                    envInfo = intent.getStringExtra("Stemp");
+                    envInfo = intent.getFloatExtra("Stemp",-1);
                     TextView txtView = findViewById(R.id.txtTEMP);
-                    txtView.setText(" " + envInfo);
+                    txtView.setText(" " + envInfo +"ºC");
 
                     break;
 
                 case "Light":
-                    envInfo = intent.getStringExtra("Slight");
+                    envInfo = intent.getFloatExtra("Slight",-1);
                     TextView txtView2 = findViewById(R.id.txtLIGHT);
-                    txtView2.setText(" " + envInfo);
+                    txtView2.setText(" " + envInfo +"lm");
 
 
                     break;
                 case "Humidity":
-                    envInfo = intent.getStringExtra("Shum");
+                    envInfo = intent.getFloatExtra("Shum",-1);
                     TextView txtView3 = findViewById(R.id.txtHUM);
-                    txtView3.setText(" " + envInfo);
+                    txtView3.setText(" " + envInfo+"%");
 
 
                     break;
