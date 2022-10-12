@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -20,6 +22,13 @@ public class threshold_alarm extends AppCompatActivity {
     public Switch s1,s2,s3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // full screen
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        getSupportActionBar().hide(); // hide the title bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_threshold_alarm);
         s1 = (Switch) findViewById(R.id.switch1);
@@ -153,15 +162,18 @@ public class threshold_alarm extends AppCompatActivity {
             Sensors.Horn.TempSwitch = s1.isChecked();
         }
 
-        if(Sensors.Horn.LumSwitch!=s2.isChecked()) {
-            Sensors.Horn.LumSwitch = s2.isChecked();
-        }
         if(Sensors.Horn.LumSwitch!=s3.isChecked()) {
-            Sensors.Horn.HumSwitch = s3.isChecked();
+            Sensors.Horn.LumSwitch = s3.isChecked();
+        }
+        if(Sensors.Horn.LumSwitch!=s2.isChecked()) {
+            Sensors.Horn.HumSwitch = s2.isChecked();
         }
 
     }
 
+    public void resetRepo (View view){
+        Sensors.repo = new RepoStorage();
+    }
 }
 
 
