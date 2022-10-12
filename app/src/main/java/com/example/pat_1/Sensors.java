@@ -83,13 +83,6 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Stemp", Stemp);
                 intent.putExtra("Class","Temp");
 
-                if (Horn.TempSwitch) {
-                    if (sensorValue < Horn.minTemp) {
-                        onAlarm("minT");
-                    } else if (sensorValue > Horn.maxTemp){
-                        onAlarm("maxT");
-                    }
-                }
 
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_temp.value){
@@ -102,7 +95,15 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (repo_size[0] == 0 || time_millis >= repo.temp_repo.get(repo_size[0] - 1).time_millis + 5000){
+                if (repo_size[0] == 0 || time_millis >= repo.temp_repo.get(repo_size[0] - 1).time_millis + 5000 || ext_detected){
+
+                    if (Horn.TempSwitch) {
+                        if (sensorValue < Horn.minTemp) {
+                            onAlarm("minT");
+                        } else if (sensorValue > Horn.maxTemp){
+                            onAlarm("maxT");
+                        }
+                    }
 
                     if (repo_size[0] >= 10){
                         repo.temp_repo.remove(0);
@@ -119,13 +120,7 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Slight", Slight);
                 intent.putExtra("Class","Light");
 
-                if (Horn.LumSwitch) {
-                    if (sensorValue < Horn.minLum) {
-                        onAlarm("minL");
-                    } else if (sensorValue > Horn.maxLum){
-                        onAlarm("maxL");
-                    }
-                }
+
 
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_light.value){
@@ -138,7 +133,15 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (repo_size[1] == 0 || time_millis >= repo.light_repo.get(repo_size[1] - 1).time_millis + 5000){
+                if (repo_size[1] == 0 || time_millis >= repo.light_repo.get(repo_size[1] - 1).time_millis + 5000 || ext_detected){
+
+                    if (Horn.LumSwitch) {
+                        if (sensorValue < Horn.minLum) {
+                            onAlarm("minL");
+                        } else if (sensorValue > Horn.maxLum){
+                            onAlarm("maxL");
+                        }
+                    }
 
                     if (repo_size[1] >= 10){
                         repo.light_repo.remove(0);
@@ -153,13 +156,6 @@ public class Sensors extends Service implements SensorEventListener {
                 intent.putExtra("Shum", Shum);
                 intent.putExtra("Class","Humidity");
 
-                if (Horn.HumSwitch) {
-                    if (sensorValue < Horn.minHum) {
-                        onAlarm("minH");
-                    } else if (sensorValue > Horn.maxHum){
-                        onAlarm("maxH");
-                    }
-                }
 
                 // REPOSITORY SECTION -> Check if new value is higher than all time high
                 if (sensorValue > repo.max_humid.value){
@@ -172,7 +168,15 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (repo_size[2] == 0 || time_millis >= repo.humid_repo.get(repo_size[2] - 1).time_millis + 5000){
+                if (repo_size[2] == 0 || time_millis >= repo.humid_repo.get(repo_size[2] - 1).time_millis + 5000 || ext_detected){
+
+                    if (Horn.HumSwitch) {
+                        if (sensorValue < Horn.minHum) {
+                            onAlarm("minH");
+                        } else if (sensorValue > Horn.maxHum){
+                            onAlarm("maxH");
+                        }
+                    }
 
                     if (repo_size[2] >= 10){
                         repo.humid_repo.remove(0);

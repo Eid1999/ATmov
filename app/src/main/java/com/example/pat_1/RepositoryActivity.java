@@ -58,6 +58,7 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
 
         switch(value){
             case "Temperature":
+
                 if (repo_size[0] > 0) {
                     txtView = findViewById(R.id.hour9);
                     txtView.setText(Sensors.repo.temp_repo.get(Sensors.repo.temp_repo.size() - 1).time);
@@ -109,8 +110,15 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
                     txtView = findViewById(R.id.value0);
                     txtView.setText("" + Sensors.repo.temp_repo.get(Sensors.repo.temp_repo.size() - 10).value + "ºC");
                 }
+
+                txtView = findViewById(R.id.max_value);
+                txtView.setText(Sensors.repo.max_temp.value + "ºC");
+                txtView = findViewById(R.id.min_value);
+                txtView.setText(Sensors.repo.min_temp.value + "ºC");
+
                 break;
             case "Luminosity":
+
                 if (repo_size[0] > 0) {
                     txtView = findViewById(R.id.hour9);
                     txtView.setText(Sensors.repo.light_repo.get(Sensors.repo.light_repo.size() - 1).time);
@@ -162,8 +170,15 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
                     txtView = findViewById(R.id.value0);
                     txtView.setText("" + Sensors.repo.light_repo.get(Sensors.repo.light_repo.size() - 10).value + "lm");
                 }
+
+                txtView = findViewById(R.id.max_value);
+                txtView.setText(Sensors.repo.max_light.value + "lm");
+                txtView = findViewById(R.id.min_value);
+                txtView.setText(Sensors.repo.min_light.value + "lm");
+
                 break;
             case "Humidity":
+
                 if (repo_size[0] > 0) {
                     txtView = findViewById(R.id.hour9);
                     txtView.setText(Sensors.repo.humid_repo.get(Sensors.repo.humid_repo.size() - 1).time);
@@ -215,6 +230,12 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
                     txtView = findViewById(R.id.value0);
                     txtView.setText("" + Sensors.repo.humid_repo.get(Sensors.repo.humid_repo.size() - 10).value + "%");
                 }
+
+                txtView = findViewById(R.id.max_value);
+                txtView.setText(Sensors.repo.max_humid.value + "%");
+                txtView = findViewById(R.id.min_value);
+                txtView.setText(Sensors.repo.min_humid.value + "%");
+
                 break;
             default:
                 break;

@@ -24,4 +24,6 @@
     <string name="save">Save Settings</string>
     <string name="Settings">Settings</string>
     <string name="Reset">Reset Repository</string>
+    <string name="repo_min">Recorded Minimum:</string>
+    <string name="repo_max">Recorded Maximum:</string>
 </resources>
