@@ -14,6 +14,7 @@
         android:layout_marginStart="112dp"
         android:onClick="keepThreshold"
         app:layout_constraintBaseline_toBaselineOf="@+id/active3"
+        android:checked="false"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -151,9 +152,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
+        android:checked="false"
         android:onClick="keepThreshold"
         app:layout_constraintBaseline_toBaselineOf="@+id/active"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:checked="false" />
 
     <Switch
         android:id="@+id/switch2"
@@ -161,6 +164,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
         android:onClick="keepThreshold"
+        android:checked="false"
         app:layout_constraintBaseline_toBaselineOf="@+id/active2"
         app:layout_constraintStart_toStartOf="parent" />
 

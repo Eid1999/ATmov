@@ -21,11 +21,29 @@ public class threshold_alarm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_threshold_alarm);
         s1 = (Switch) findViewById(R.id.switch1);
-        s1.setChecked(false);
+        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) //Line A
+            {
+
+            }
+        });
         s2 = (Switch) findViewById(R.id.switch2);
-        s2.setChecked(false);
+        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) //Line A
+            {
+
+            }
+        });
         s3 = (Switch) findViewById(R.id.switch3);
-        s3.setChecked(false);
+        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) //Line A
+            {
+
+            }
+        });
     }
 
     public void keepThreshold(View view) {
@@ -61,21 +79,17 @@ public class threshold_alarm extends AppCompatActivity {
             Sensors.Horn.maxHum = Float.parseFloat(maxLum.getText().toString().trim());
         }
 
-        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Sensors.Horn.TempSwitch = isChecked;
-            }
-        });
-        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Sensors.Horn.LumSwitch = isChecked;
-            }
-        });
-        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Sensors.Horn.HumSwitch = isChecked;
-            }
-        });
+        if(Sensors.Horn.TempSwitch!=s1.isChecked()) {
+            Sensors.Horn.TempSwitch = s1.isChecked();
+        }
+
+        if(Sensors.Horn.LumSwitch!=s2.isChecked()) {
+            Sensors.Horn.LumSwitch = s2.isChecked();
+        }
+        if(Sensors.Horn.LumSwitch!=s2.isChecked()) {
+            Sensors.Horn.HumSwitch = s3.isChecked();
+        }
+
     }
 
 }
