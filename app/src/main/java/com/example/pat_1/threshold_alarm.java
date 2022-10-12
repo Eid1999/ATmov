@@ -86,7 +86,7 @@ public class threshold_alarm extends AppCompatActivity {
         if(Sensors.Horn.LumSwitch!=s2.isChecked()) {
             Sensors.Horn.LumSwitch = s2.isChecked();
         }
-        if(Sensors.Horn.LumSwitch!=s2.isChecked()) {
+        if(Sensors.Horn.LumSwitch!=s3.isChecked()) {
             Sensors.Horn.HumSwitch = s3.isChecked();
         }
 
