@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class threshold_alarm extends AppCompatActivity {
@@ -45,7 +46,38 @@ public class threshold_alarm extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
+
+        TextView txtView = findViewById(R.id.maxTemp);
+        txtView.setText(" " + Sensors.Horn.maxTemp);
+
+
+        TextView txtView1 = findViewById(R.id.minTemp);
+        txtView1.setText(" " + Sensors.Horn.minTemp);
+
+        TextView txtView2 = findViewById(R.id.maxHum);
+        txtView2.setText(" " + Sensors.Horn.maxHum );
+
+        TextView txtView3 = findViewById(R.id.minHum);
+        txtView3.setText(" " + Sensors.Horn.minHum);
+
+        TextView txtView4 = findViewById(R.id.minLum);
+        txtView4.setText(" " + Sensors.Horn.minLum);
+
+        TextView txtView5 = findViewById(R.id.maxLum);
+        txtView5.setText(" " + Sensors.Horn.maxLum);
+
+
+
+
+
+
     }
+
 
     public void keepThreshold(View view) {
         EditText minTemp = (EditText) findViewById(R.id.minTemp);
