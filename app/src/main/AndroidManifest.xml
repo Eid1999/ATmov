@@ -35,9 +35,10 @@
         <activity
             android:name=".RepositoryActivity"
             android:exported="false">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".threshold_alarm"
@@ -51,9 +52,10 @@
         <activity
             android:name=".SensorActivity"
             android:exported="false">
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".MainActivity"

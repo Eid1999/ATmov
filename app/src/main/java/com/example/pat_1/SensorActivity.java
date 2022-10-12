@@ -18,12 +18,14 @@ import android.widget.Toast;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.concurrent.TimeUnit;
 
 
-public class SensorActivity extends Activity{
+public class SensorActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     public Sensor envSense,temp,light, hum;
     float sensorValue;

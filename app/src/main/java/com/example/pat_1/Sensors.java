@@ -93,7 +93,7 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (repo_size[0] == 0 || time_millis + 5000 <= repo.temp_repo.get(repo_size[0] - 1).time_millis){
+                if (repo_size[0] == 0 || time_millis >= repo.temp_repo.get(repo_size[0] - 1).time_millis + 5000){
 
                     if (repo_size[0] >= 10){
                         repo.temp_repo.remove(0);
@@ -101,6 +101,7 @@ public class Sensors extends Service implements SensorEventListener {
 
                     repo.temp_repo.add(new_event);
                 }
+
 
                 break;
 
@@ -120,7 +121,7 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (repo_size[1] == 0 || time_millis + 5000 <= repo.light_repo.get(repo_size[1] - 1).time_millis){
+                if (repo_size[1] == 0 || time_millis >= repo.light_repo.get(repo_size[1] - 1).time_millis + 5000){
 
                     if (repo_size[1] >= 10){
                         repo.light_repo.remove(0);
@@ -146,7 +147,7 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (repo_size[2] == 0 || time_millis + 5000 <= repo.humid_repo.get(repo_size[2] - 1).time_millis){
+                if (repo_size[2] == 0 || time_millis >= repo.humid_repo.get(repo_size[2] - 1).time_millis + 5000){
 
                     if (repo_size[2] >= 10){
                         repo.humid_repo.remove(0);
