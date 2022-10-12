@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 public class threshold_alarm extends AppCompatActivity {
     float minT = (float) -273.1, maxT = 100, minH = 0, maxH = 100, minL = 0, maxL = 40000;
-    public Intent intent = new Intent(this, Alarm.class);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +32,7 @@ public class threshold_alarm extends AppCompatActivity {
         EditText maxHum = (EditText) findViewById(R.id.maxHum);
         EditText minLum = (EditText) findViewById(R.id.minLum);
         EditText maxLum = (EditText) findViewById(R.id.maxLum);
+        Intent intent = new Intent(this, Alarm.class);
 
 
         Switch s1 = (Switch) findViewById(R.id.switch1);

@@ -26,7 +26,7 @@ public class Sensors extends Service implements SensorEventListener {
 
     public static RepoStorage repo = new RepoStorage();
     boolean ext_detected;
-    int repo_size[] = {0, 0, 0};
+    int repo_size;
     long time_millis;
 
     public int onStartCommand(Intent intent, int flags, int startId) {
