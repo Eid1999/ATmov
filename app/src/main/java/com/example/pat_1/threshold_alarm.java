@@ -15,11 +15,17 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 public class threshold_alarm extends AppCompatActivity {
-
+    public Switch s1,s2,s3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_threshold_alarm);
+        s1 = (Switch) findViewById(R.id.switch1);
+        s1.setChecked(false);
+        s2 = (Switch) findViewById(R.id.switch2);
+        s2.setChecked(false);
+        s3 = (Switch) findViewById(R.id.switch3);
+        s3.setChecked(false);
     }
 
     public void keepThreshold(View view) {
@@ -30,9 +36,7 @@ public class threshold_alarm extends AppCompatActivity {
         EditText minHum = (EditText) findViewById(R.id.minHum);
         EditText maxHum = (EditText) findViewById(R.id.maxHum);
 
-        Switch s1 = (Switch) findViewById(R.id.switch1);
-        Switch s2 = (Switch) findViewById(R.id.switch2);
-        Switch s3 = (Switch) findViewById(R.id.switch3);
+
         if (!TextUtils.isEmpty(minTemp.getText().toString())) {
             Sensors.Horn.minTemp = Float.parseFloat(minTemp.getText().toString().trim());
         }
