@@ -29,10 +29,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
-    private SensorManager sensorManager;
-    public Sensor envSense,temp,light, hum;
-    public String Slight,Shum,Stemp;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(getApplicationContext(), Sensors.class );
         startService(intent);
+        Intent intent1 = new Intent(this, Alarm.class);
+        startService(intent1);
+
 
 
 
@@ -51,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
     /** Called when the user taps the Show Sensors button */
     public void show_sensors(View view) {
         Intent intent = new Intent(this, SensorActivity.class);
-        intent.putExtra("Slight", Slight);// if its int type
-        intent.putExtra("Stemp", Stemp);// if its int type
-        intent.putExtra("Shum", Shum);// if its int type
         startActivity(intent);
     }
 
