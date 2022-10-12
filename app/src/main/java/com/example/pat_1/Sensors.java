@@ -26,7 +26,7 @@ public class Sensors extends Service implements SensorEventListener {
 
     public static RepoStorage repo = new RepoStorage();
     boolean ext_detected;
-    int repo_size;
+    int repo_size[] = {0, 0, 0};
     long time_millis;
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -69,7 +69,9 @@ public class Sensors extends Service implements SensorEventListener {
         String time = sdf.format(date_time);
 
         // REPOSITORY SECTION ->
-        repo_size = repo.temp_repo.size();
+        repo_size[0] = repo.temp_repo.size();
+        repo_size[1] = repo.light_repo.size();
+        repo_size[2] = repo.humid_repo.size();
         RepoValues new_event = new RepoValues(time, sensorValue, time_millis);
         ext_detected = false;
 
@@ -91,9 +93,9 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (time_millis + 5000 <= repo.temp_repo.get(repo_size - 1).time_millis){
+                if (repo_size[0] == 0 || time_millis + 5000 <= repo.temp_repo.get(repo_size[0] - 1).time_millis){
 
-                    if (repo_size >= 10){
+                    if (repo_size[0] >= 10){
                         repo.temp_repo.remove(0);
                     }
 
@@ -118,9 +120,9 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (time_millis + 5000 <= repo.light_repo.get(repo_size - 1).time_millis){
+                if (repo_size[1] == 0 || time_millis + 5000 <= repo.light_repo.get(repo_size[1] - 1).time_millis){
 
-                    if (repo_size >= 10){
+                    if (repo_size[1] >= 10){
                         repo.light_repo.remove(0);
                     }
 
@@ -144,9 +146,9 @@ public class Sensors extends Service implements SensorEventListener {
                 }
 
                 // REPOSITORY SECTION -> Store new event and delete oldest one
-                if (time_millis + 5000 <= repo.humid_repo.get(repo_size - 1).time_millis){
+                if (repo_size[2] == 0 || time_millis + 5000 <= repo.humid_repo.get(repo_size[2] - 1).time_millis){
 
-                    if (repo_size >= 10){
+                    if (repo_size[2] >= 10){
                         repo.humid_repo.remove(0);
                     }
 

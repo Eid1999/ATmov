@@ -18,6 +18,6 @@ public class RepositoryActivity extends AppCompatActivity {
 
     }
 
-    //reset repository, maximums and minimums
+    // create button to reset repository, maximums and minimums
 
 }
