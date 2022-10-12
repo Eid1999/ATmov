@@ -17,12 +17,10 @@ import android.widget.TextView;
 
 public class threshold_alarm extends AppCompatActivity {
     float minT = (float) -273.1, maxT = 100, minH = 0, maxH = 100, minL = 0, maxL = 40000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_threshold_alarm);
-
     }
 
 
