@@ -8,6 +8,18 @@
     android:onClick="keepThreshold"
     tools:context=".threshold_alarm">
 
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_baseline_arrow_back_24"
+        android:onClick="goback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <Switch
         android:id="@+id/switch3"
         android:layout_width="wrap_content"
@@ -27,6 +39,7 @@
         android:imeOptions="actionDone"
         android:inputType="numberSigned|numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/minTemp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/minTemp" />
@@ -40,6 +53,7 @@
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/minHum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/minHum" />
@@ -54,6 +68,7 @@
         android:inputType="numberDecimal"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/humidity"
         app:layout_constraintStart_toEndOf="@+id/humidity" />
 
@@ -66,6 +81,7 @@
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/minLum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/minLum" />
@@ -79,6 +95,7 @@
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/ambient_temp3"
         app:layout_constraintStart_toEndOf="@+id/ambient_temp3" />
 
@@ -86,12 +103,13 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/title_threshold"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintStart_toEndOf="@+id/button8"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -102,6 +120,7 @@
         android:layout_marginTop="60dp"
         android:text="@string/ambient_temperature"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -127,6 +146,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/luminosity"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidity" />
@@ -141,6 +161,7 @@
         android:inputType="numberSigned|numberDecimal"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@+id/ambient_temp"
         app:layout_constraintStart_toEndOf="@+id/ambient_temp" />
 
@@ -197,6 +218,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="90dp"
         android:text="@string/active_label"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -210,7 +232,8 @@
         android:text="@string/active_label"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/active3"
@@ -219,6 +242,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="252dp"
         android:text="@string/active_label"
+        android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
