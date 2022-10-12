@@ -32,38 +32,15 @@ public class threshold_alarm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_threshold_alarm);
         s1 = (Switch) findViewById(R.id.switch1);
-        s1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) //Line A
-            {
-
-            }
-        });
         s2 = (Switch) findViewById(R.id.switch2);
-        s2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) //Line A
-            {
-
-            }
-        });
         s3 = (Switch) findViewById(R.id.switch3);
-        s3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) //Line A
-            {
 
-            }
-        });
-
-
-
-
-
+        s1.setChecked(Sensors.Horn.TempSwitch);
+        s2.setChecked(Sensors.Horn.HumSwitch);
+        s3.setChecked(Sensors.Horn.LumSwitch);
 
         TextView txtView = findViewById(R.id.maxTemp);
         txtView.setText(" " + Sensors.Horn.maxTemp);
-
 
         TextView txtView1 = findViewById(R.id.minTemp);
         txtView1.setText(" " + Sensors.Horn.minTemp);
@@ -79,11 +56,6 @@ public class threshold_alarm extends AppCompatActivity {
 
         TextView txtView5 = findViewById(R.id.maxLum);
         txtView5.setText(" " + Sensors.Horn.maxLum);
-
-
-
-
-
 
     }
 
@@ -124,7 +96,7 @@ public class threshold_alarm extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.minLum = Float.parseFloat(minHum.getText().toString().trim());
+                Sensors.Horn.minLum = Float.parseFloat(minLum.getText().toString().trim());
             }
         }
 
@@ -134,7 +106,7 @@ public class threshold_alarm extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.maxLum = Float.parseFloat(maxHum.getText().toString().trim());
+                Sensors.Horn.maxLum = Float.parseFloat(maxLum.getText().toString().trim());
             }
         }
 
@@ -144,7 +116,7 @@ public class threshold_alarm extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.minHum = Float.parseFloat(minLum.getText().toString().trim());
+                Sensors.Horn.minHum = Float.parseFloat(minHum.getText().toString().trim());
             }
         }
 
@@ -154,19 +126,24 @@ public class threshold_alarm extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.maxHum = Float.parseFloat(maxLum.getText().toString().trim());
+                Sensors.Horn.maxHum = Float.parseFloat(maxHum.getText().toString().trim());
             }
         }
 
-        if(Sensors.Horn.TempSwitch!=s1.isChecked()) {
-            Sensors.Horn.TempSwitch = s1.isChecked();
+        if(s1.isChecked()) {
+            Sensors.Horn.TempSwitch = true;
+        } else {
+            Sensors.Horn.TempSwitch = false;
         }
-
-        if(Sensors.Horn.LumSwitch!=s3.isChecked()) {
-            Sensors.Horn.LumSwitch = s3.isChecked();
+        if(s2.isChecked()) {
+            Sensors.Horn.HumSwitch = true;
+        } else {
+            Sensors.Horn.HumSwitch = false;
         }
-        if(Sensors.Horn.LumSwitch!=s2.isChecked()) {
-            Sensors.Horn.HumSwitch = s2.isChecked();
+        if(s3.isChecked()) {
+            Sensors.Horn.LumSwitch = true;
+        } else {
+            Sensors.Horn.LumSwitch = false;
         }
 
     }
