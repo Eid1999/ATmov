@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#22C39D"
     android:onClick="keepThreshold"
     tools:context=".threshold_alarm">
 
@@ -12,9 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
+        android:checked="false"
         android:onClick="keepThreshold"
         app:layout_constraintBaseline_toBaselineOf="@+id/active3"
-        android:checked="false"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -87,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/title_threshold"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +98,7 @@
         android:id="@+id/ambient_temp"
         android:layout_width="192dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="60dp"
         android:text="@string/ambient_temperature"
         android:textAlignment="center"
@@ -108,10 +110,11 @@
         android:id="@+id/humidity"
         android:layout_width="192dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:text="@string/humidity"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ambient_temp" />
@@ -120,8 +123,8 @@
         android:id="@+id/ambient_temp3"
         android:layout_width="192dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:text="@string/luminosity"
         android:textAlignment="center"
         android:textSize="16sp"
@@ -145,12 +148,25 @@
         android:id="@+id/Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#FFC107"
         android:onClick="keepThreshold"
         android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/Reset_Repo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Reset_Repo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:backgroundTint="#FFC107"
+        android:onClick="resetRepo"
+        android:text="@string/Reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
@@ -169,8 +185,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
-        android:onClick="keepThreshold"
         android:checked="false"
+        android:onClick="keepThreshold"
         app:layout_constraintBaseline_toBaselineOf="@+id/active2"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -179,7 +195,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="90dp"
         android:text="@string/active_label"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -190,7 +206,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="161dp"
+        android:layout_marginTop="172dp"
         android:text="@string/active_label"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +217,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="234dp"
+        android:layout_marginTop="252dp"
         android:text="@string/active_label"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"

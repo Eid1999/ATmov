@@ -20,6 +20,8 @@
         <item>Luminosity</item>
         <item>Humidity</item>
     </string-array>
-    <string name="save">Save</string>
     <string name="no_repo_value">--------</string>
+    <string name="save">Save Settings</string>
+    <string name="Settings">Settings</string>
+    <string name="Reset">Reset Repository</string>
 </resources>
