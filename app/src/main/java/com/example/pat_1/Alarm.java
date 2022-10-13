@@ -2,7 +2,7 @@ package com.example.pat_1;
 
 import android.widget.Toast;
 
-public class Alarm {
+public class Alarm implements java.io.Serializable{
 
     public float minTemp, maxTemp, minLum, maxLum, minHum, maxHum;
     public boolean TempSwitch, LumSwitch, HumSwitch;

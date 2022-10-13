@@ -53,14 +53,12 @@ public class Sensors extends Service implements SensorEventListener {
         sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, hum, SensorManager.SENSOR_DELAY_NORMAL);
 
-        //File myfile = new File(context.getFilesDir(), FILE_NAME);
-
-        Object [] data;
+        Object []data;
         data = (Object[]) readData();
 
         if (data != null){
-            data [0] = repo;
-            data [1] = Horn;
+            repo = (RepoStorage) data [0];
+            Horn = (Alarm) data [1];
         }
 
         return flags;
@@ -269,30 +267,26 @@ public class Sensors extends Service implements SensorEventListener {
     }
 
     public void writeData () {
-        String test = "hey";
-        try (FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE)) {
+        try  {
+            FileOutputStream fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+            ObjectOutputStream Objfos = new ObjectOutputStream (fos);
             Object [] storeList = new Object [2];
             storeList [0] = repo;
             storeList [1] = Horn;
-            fos.write(Integer.parseInt(test));
+            Objfos.writeObject(storeList);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public Object readData() {
-        File tmp = new File(FILE_NAME);
-        if (!tmp.exists()) {
+        try {
+            FileInputStream fis = openFileInput(FILE_NAME);
+            return new ObjectInputStream(fis).readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
             return null;
         }
-        //try {
-            //FileInputStream fis = context.openFileInput(FILE_NAME);
-            //return new ObjectInputStream(fis).readObject();
-        //} catch (ClassNotFoundException | IOException e) {
-            //e.printStackTrace();
-            //return null;
-        //}
-        return null;
     }
 }
 

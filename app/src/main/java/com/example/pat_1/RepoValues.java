@@ -1,6 +1,6 @@
 package com.example.pat_1;
 
-public class RepoValues {
+public class RepoValues implements java.io.Serializable{
     protected String time;
     protected float value;
     protected long time_millis;
