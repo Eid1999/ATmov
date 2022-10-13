@@ -14,6 +14,16 @@ import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -26,9 +36,12 @@ public class Sensors extends Service implements SensorEventListener {
 
     public static RepoStorage repo = new RepoStorage();
     boolean ext_detected;
-    int repo_size[] =  {0, 0, 0};
+    int[] repo_size =  {0, 0, 0};
     long time_millis;
     public static Alarm Horn = new Alarm();
+
+    Context context;
+    public static final String FILE_NAME = "Pat_1Storage";
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -36,23 +49,28 @@ public class Sensors extends Service implements SensorEventListener {
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
 
-
         sensorManager.registerListener(this, temp, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, hum, SensorManager.SENSOR_DELAY_NORMAL);
 
+        File myfile = new File(context.getFilesDir(), FILE_NAME);
+
+        Object [] data;
+        data = (Object[]) readData();
+
+        if (data != null){
+            data [0] = repo;
+            data [1] = Horn;
+        }
+
         return flags;
     }
-
-
 
     @Override
     public IBinder onBind(Intent intent) {
 
         return null;
     }
-
-
 
     public final void onSensorChanged(SensorEvent event) {
 
@@ -75,7 +93,6 @@ public class Sensors extends Service implements SensorEventListener {
         repo_size[2] = repo.humid_repo.size();
         RepoValues new_event = new RepoValues(time, sensorValue, time_millis);
         ext_detected = false;
-
 
         switch(currType){
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
@@ -247,6 +264,34 @@ public class Sensors extends Service implements SensorEventListener {
         sensorManager.unregisterListener(this);
     }
 
+    public void onTaskRemoved (Intent rootIntent) {
+        writeData();
+    }
+
+    public void writeData () {
+        try (ObjectOutputStream fos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            Object [] storeList = new Object [2];
+            storeList [0] = repo;
+            storeList [1] = Horn;
+            fos.writeObject(storeList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object readData() {
+        File tmp = new File(FILE_NAME);
+        if (!tmp.exists()) {
+            return null;
+        }
+        try {
+            FileInputStream fis = context.openFileInput(FILE_NAME);
+            return new ObjectInputStream(fis).readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 
 
