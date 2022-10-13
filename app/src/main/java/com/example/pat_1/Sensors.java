@@ -53,7 +53,7 @@ public class Sensors extends Service implements SensorEventListener {
         sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, hum, SensorManager.SENSOR_DELAY_NORMAL);
 
-        File myfile = new File(context.getFilesDir(), FILE_NAME);
+        //File myfile = new File(context.getFilesDir(), FILE_NAME);
 
         Object [] data;
         data = (Object[]) readData();
@@ -269,11 +269,12 @@ public class Sensors extends Service implements SensorEventListener {
     }
 
     public void writeData () {
-        try (ObjectOutputStream fos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+        String test = "hey";
+        try (FileOutputStream fos = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE)) {
             Object [] storeList = new Object [2];
             storeList [0] = repo;
             storeList [1] = Horn;
-            fos.writeObject(storeList);
+            fos.write(Integer.parseInt(test));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -284,13 +285,14 @@ public class Sensors extends Service implements SensorEventListener {
         if (!tmp.exists()) {
             return null;
         }
-        try {
-            FileInputStream fis = context.openFileInput(FILE_NAME);
-            return new ObjectInputStream(fis).readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        //try {
+            //FileInputStream fis = context.openFileInput(FILE_NAME);
+            //return new ObjectInputStream(fis).readObject();
+        //} catch (ClassNotFoundException | IOException e) {
+            //e.printStackTrace();
+            //return null;
+        //}
+        return null;
     }
 }
 
