@@ -258,12 +258,10 @@ public class Sensors extends Service implements SensorEventListener {
         Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
         accuracyToast.show();
     }
-    protected void onPause() {
-        sensorManager.unregisterListener(this);
-    }
 
     public void onTaskRemoved (Intent rootIntent) {
         writeData();
+        sensorManager.unregisterListener(this);
     }
 
     public void writeData () {
