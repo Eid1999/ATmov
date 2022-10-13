@@ -1,8 +1,9 @@
 package com.example.pat_1;
 
 import java.util.ArrayList;
+import java.io.*;
 
-public class RepoStorage {
+public class RepoStorage implements java.io.Serializable{
 
     public ArrayList<RepoValues> temp_repo = new ArrayList<RepoValues>();
     public ArrayList<RepoValues> light_repo = new ArrayList<RepoValues>();
