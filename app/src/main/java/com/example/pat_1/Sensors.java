@@ -262,6 +262,7 @@ public class Sensors extends Service implements SensorEventListener {
     public void onTaskRemoved (Intent rootIntent) {
         writeData();
         sensorManager.unregisterListener(this);
+        this.stopSelf();
     }
 
     public void writeData () {
