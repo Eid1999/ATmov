@@ -17,9 +17,11 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class threshold_alarm extends AppCompatActivity {
     public Switch s1,s2,s3;
+    ToggleButton toggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -34,10 +36,12 @@ public class threshold_alarm extends AppCompatActivity {
         s1 = (Switch) findViewById(R.id.switch1);
         s2 = (Switch) findViewById(R.id.switch2);
         s3 = (Switch) findViewById(R.id.switch3);
+        toggle= (ToggleButton) findViewById(R.id.toggleButton);
 
         s1.setChecked(Sensors.Horn.TempSwitch);
         s2.setChecked(Sensors.Horn.HumSwitch);
         s3.setChecked(Sensors.Horn.LumSwitch);
+        toggle.setChecked(Sensors.Horn.energy_saver);
 
         TextView txtView = findViewById(R.id.maxTemp);
         txtView.setText(" " + Sensors.Horn.maxTemp);
@@ -56,9 +60,12 @@ public class threshold_alarm extends AppCompatActivity {
 
         TextView txtView5 = findViewById(R.id.maxLum);
         txtView5.setText(" " + Sensors.Horn.maxLum);
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            startService(intent);
+        }
 
     }
-
 
     public void keepThreshold(View view) {
         EditText minTemp = (EditText) findViewById(R.id.minTemp);
@@ -146,6 +153,13 @@ public class threshold_alarm extends AppCompatActivity {
             Sensors.Horn.LumSwitch = false;
         }
 
+        if (toggle.isChecked()) {
+            Sensors.Horn.energy_saver=true;
+        } else {
+            Sensors.Horn.energy_saver=false;
+        }
+
+
     }
 
     public void resetRepo (View view){
@@ -153,6 +167,18 @@ public class threshold_alarm extends AppCompatActivity {
     }
 
     public void goback(View view){
+
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            stopService(intent);
+        }
+        finish();
+    }
+    public void onBackPressed(){
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            stopService(intent);
+        }
         finish();
     }
 }

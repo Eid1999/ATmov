@@ -3,6 +3,7 @@ package com.example.pat_1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -31,6 +32,10 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
 
         Spinner drop_menu = (Spinner) findViewById(R.id.dropdown_menu);
         drop_menu.setOnItemSelectedListener(this);
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            startService(intent);
+        }
 
     }
 
@@ -247,6 +252,18 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
     }
 
     public void goback(View view){
+
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            stopService(intent);
+        }
+        finish();
+    }
+    public void onBackPressed(){
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            stopService(intent);
+        }
         finish();
     }
 }

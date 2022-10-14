@@ -21,9 +21,12 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
 
+
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(getApplicationContext(), Sensors.class );
-        startService(intent);
+        if(Sensors.Horn==null||Sensors.Horn.energy_saver==false) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            startService(intent);
+        }
     }
     /** Called when the user taps the Show Sensors button */
     public void show_sensors(View view) {

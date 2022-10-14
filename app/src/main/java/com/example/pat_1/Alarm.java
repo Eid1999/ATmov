@@ -5,7 +5,7 @@ import android.widget.Toast;
 public class Alarm implements java.io.Serializable{
 
     public float minTemp, maxTemp, minLum, maxLum, minHum, maxHum;
-    public boolean TempSwitch, LumSwitch, HumSwitch;
+    public boolean TempSwitch, LumSwitch, HumSwitch, energy_saver;
 
     public Alarm() {
         minTemp = -273.1f;
@@ -17,6 +17,7 @@ public class Alarm implements java.io.Serializable{
         TempSwitch = false;
         LumSwitch = false;
         HumSwitch = false;
+        energy_saver=false;
     }
 
 }

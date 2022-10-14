@@ -59,6 +59,10 @@ public class SensorActivity extends AppCompatActivity {
         temp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            startService(intent);
+        }
 
     }
     String BUTTON_ACTION = "button";
@@ -68,6 +72,7 @@ public class SensorActivity extends AppCompatActivity {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("Sensors"));
+
     }
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -108,6 +113,18 @@ public class SensorActivity extends AppCompatActivity {
         super.onDestroy();
     }
     public void goback(View view){
+
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            stopService(intent);
+        }
+        finish();
+    }
+    public void onBackPressed(){
+        if(Sensors.Horn.energy_saver) {
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            stopService(intent);
+        }
         finish();
     }
 

@@ -61,6 +61,8 @@ public class Sensors extends Service implements SensorEventListener {
             Horn = (Alarm) data [1];
         }
 
+
+
         return flags;
     }
 
@@ -258,7 +260,10 @@ public class Sensors extends Service implements SensorEventListener {
         Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
         accuracyToast.show();
     }
-
+    public void onDestroy(){
+        sensorManager.unregisterListener(this);
+        this.stopSelf();
+    }
     public void onTaskRemoved (Intent rootIntent) {
         writeData();
         sensorManager.unregisterListener(this);
