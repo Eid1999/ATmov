@@ -53,13 +53,13 @@ public class Sensors extends Service implements SensorEventListener {
         sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, hum, SensorManager.SENSOR_DELAY_NORMAL);
 
-        Object []data;
-        data = (Object[]) readData();
+        //Object []data;
+        //data = (Object[]) readData();
 
-        if (data != null){
-            repo = (RepoStorage) data [0];
-            Horn = (Alarm) data [1];
-        }
+        //if (data != null){
+        //    repo = (RepoStorage) data [0];
+        // Horn = (Alarm) data [1];
+        //}
 
 
 
@@ -261,6 +261,7 @@ public class Sensors extends Service implements SensorEventListener {
         accuracyToast.show();
     }
     public void onDestroy(){
+        writeData();
         sensorManager.unregisterListener(this);
         this.stopSelf();
     }

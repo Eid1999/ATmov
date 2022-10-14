@@ -84,18 +84,18 @@ public class SensorActivity extends AppCompatActivity {
                 case "Temp":
                     envInfo = intent.getFloatExtra("Stemp",-1);
                     TextView txtView = findViewById(R.id.txtTEMP);
-                    txtView.setText(" " + envInfo +"ºC");
+                    txtView.setText(" " + envInfo +" ºC");
                     break;
 
                 case "Light":
                     envInfo = intent.getFloatExtra("Slight",-1);
                     TextView txtView2 = findViewById(R.id.txtLIGHT);
-                    txtView2.setText(" " + envInfo +"lm");
+                    txtView2.setText(" " + envInfo +" lm");
                     break;
                 case "Humidity":
                     envInfo = intent.getFloatExtra("Shum",-1);
                     TextView txtView3 = findViewById(R.id.txtHUM);
-                    txtView3.setText(" " + envInfo+"%");
+                    txtView3.setText(" " + envInfo+" %");
                     break;
                 default:
                     break;

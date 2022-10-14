@@ -9,8 +9,11 @@ import android.content.Intent;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +24,21 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
 
+        Object []data;
+        data = (Object[]) readData();
 
+        if (data != null){
+            Sensors.repo = (RepoStorage) data [0];
+            Sensors.Horn = (Alarm) data [1];
+        }
         setContentView(R.layout.activity_main);
         if(Sensors.Horn==null||Sensors.Horn.energy_saver==false) {
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             startService(intent);
         }
+
+
+
     }
     /** Called when the user taps the Show Sensors button */
     public void show_sensors(View view) {
@@ -47,7 +59,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    public Object readData() {
+        try {
+            FileInputStream fis = openFileInput(Sensors.FILE_NAME);
+            return new ObjectInputStream(fis).readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 }
