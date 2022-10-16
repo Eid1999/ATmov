@@ -1,5 +1,8 @@
 package com.example.pat_1;
 
+import static com.example.pat_1.MainActivity.Horn;
+import static com.example.pat_1.MainActivity.repo;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -35,35 +38,29 @@ public class ThresholdAlarmActivity extends AppCompatActivity {
         toggle= (ToggleButton) findViewById(R.id.toggleButton);
 
         //Set the switches and the energy saver button to the previous saved
-        s1.setChecked(Sensors.Horn.TempSwitch);
-        s2.setChecked(Sensors.Horn.HumSwitch);
-        s3.setChecked(Sensors.Horn.LumSwitch);
-        toggle.setChecked(Sensors.Horn.energy_saver);
+        s1.setChecked(Horn.TempSwitch);
+        s2.setChecked(Horn.HumSwitch);
+        s3.setChecked(Horn.LumSwitch);
+        toggle.setChecked(Horn.energy_saver);
 
         //set the contents of the thresholds text boxes to the previous saved
         TextView txtView = findViewById(R.id.maxTemp);
-        txtView.setText(" " + Sensors.Horn.maxTemp);
+        txtView.setText("" + Horn.maxTemp);
 
         TextView txtView1 = findViewById(R.id.minTemp);
-        txtView1.setText(" " + Sensors.Horn.minTemp);
+        txtView1.setText("" + Horn.minTemp);
 
         TextView txtView2 = findViewById(R.id.maxHum);
-        txtView2.setText(" " + Sensors.Horn.maxHum );
+        txtView2.setText("" + Horn.maxHum );
 
         TextView txtView3 = findViewById(R.id.minHum);
-        txtView3.setText(" " + Sensors.Horn.minHum);
+        txtView3.setText("" + Horn.minHum);
 
         TextView txtView4 = findViewById(R.id.minLum);
-        txtView4.setText(" " + Sensors.Horn.minLum);
+        txtView4.setText("" + Horn.minLum);
 
         TextView txtView5 = findViewById(R.id.maxLum);
-        txtView5.setText(" " + Sensors.Horn.maxLum);
-
-        //if the energy saver is On only start the sensor service now
-        if(Sensors.Horn.energy_saver) {
-            Intent intent = new Intent(getApplicationContext(), Sensors.class);
-            startService(intent);
-        }
+        txtView5.setText("" + Horn.maxLum);
 
     }
 
@@ -84,7 +81,7 @@ public class ThresholdAlarmActivity extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.minTemp = Float.parseFloat(minTemp.getText().toString().trim()); //keep new threshold
+                Horn.minTemp = Float.parseFloat(minTemp.getText().toString().trim()); //keep new threshold
             }
         }
 
@@ -95,7 +92,7 @@ public class ThresholdAlarmActivity extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.maxTemp = Float.parseFloat(maxTemp.getText().toString().trim()); //keep new threshold
+                Horn.maxTemp = Float.parseFloat(maxTemp.getText().toString().trim()); //keep new threshold
             }
         }
 
@@ -106,7 +103,7 @@ public class ThresholdAlarmActivity extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.minLum = Float.parseFloat(minLum.getText().toString().trim()); //keep new threshold
+                Horn.minLum = Float.parseFloat(minLum.getText().toString().trim()); //keep new threshold
             }
         }
 
@@ -117,7 +114,7 @@ public class ThresholdAlarmActivity extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.maxLum = Float.parseFloat(maxLum.getText().toString().trim()); //keep new threshold
+                Horn.maxLum = Float.parseFloat(maxLum.getText().toString().trim()); //keep new threshold
             }
         }
 
@@ -128,7 +125,7 @@ public class ThresholdAlarmActivity extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.minHum = Float.parseFloat(minHum.getText().toString().trim()); //keep new threshold
+                Horn.minHum = Float.parseFloat(minHum.getText().toString().trim()); //keep new threshold
             }
         }
 
@@ -139,58 +136,52 @@ public class ThresholdAlarmActivity extends AppCompatActivity {
                 Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
                 accuracyToast.show();
             } else {
-                Sensors.Horn.maxHum = Float.parseFloat(maxHum.getText().toString().trim()); //keep new threshold
+                Horn.maxHum = Float.parseFloat(maxHum.getText().toString().trim()); //keep new threshold
             }
         }
 
         //check all the switches and keep the their states/positions
         if(s1.isChecked()) {
-            Sensors.Horn.TempSwitch = true;
+            Horn.TempSwitch = true;
         } else {
-            Sensors.Horn.TempSwitch = false;
+            Horn.TempSwitch = false;
         }
         if(s2.isChecked()) {
-            Sensors.Horn.HumSwitch = true;
+            Horn.HumSwitch = true;
         } else {
-            Sensors.Horn.HumSwitch = false;
+            Horn.HumSwitch = false;
         }
         if(s3.isChecked()) {
-            Sensors.Horn.LumSwitch = true;
+            Horn.LumSwitch = true;
         } else {
-            Sensors.Horn.LumSwitch = false;
+            Horn.LumSwitch = false;
         }
 
         //check the energy saver button and keep its state/position
-        if (toggle.isChecked()) {
-            Sensors.Horn.energy_saver=true;
-        } else {
-            Sensors.Horn.energy_saver=false;
+        if (toggle.isChecked() && !Horn.energy_saver) {
+            Horn.energy_saver=true;
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            stopService(intent);
+        } else if(!toggle.isChecked() && Horn.energy_saver) {
+            Horn.energy_saver=false;
+            //if the energy saver is off, start the sensor service now
+            Intent intent = new Intent(getApplicationContext(), Sensors.class);
+            startService(intent);
         }
 
     }
 
     //Click the reset repository button activates this method
     public void resetRepo (View view){
-        Sensors.repo = new RepoStorage(); //reset the repository
+        repo = new RepoStorage(); //reset the repository
     }
 
-    //Go back, without clicking the top left arrow, activates this method
+
+    //Click the top left arrow activates this method
     public void goback(View view){
-        if(Sensors.Horn.energy_saver) { //if energy saver mode is active close the sensors service
-            Intent intent = new Intent(getApplicationContext(), Sensors.class);
-            stopService(intent);
-        }
         finish();
     }
 
-    //Ckick the top left arrow activates this method
-    public void onBackPressed(){
-        if(Sensors.Horn.energy_saver) { //if energy saver mode is active close the sensors service
-            Intent intent = new Intent(getApplicationContext(), Sensors.class);
-            stopService(intent);
-        }
-        finish();
-    }
 }
 
 

@@ -1,6 +1,8 @@
 package com.example.pat_1;
 
 
+import static com.example.pat_1.MainActivity.Horn;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -59,7 +61,7 @@ public class SensorActivity extends AppCompatActivity {
         temp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-        if(Sensors.Horn.energy_saver) {
+        if(Horn.energy_saver) {
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             startService(intent);
         }
@@ -115,7 +117,7 @@ public class SensorActivity extends AppCompatActivity {
 
     //Go back, without clicking the top left arrow, activates this method
     public void goback(View view){
-        if(Sensors.Horn.energy_saver) { //if energy saver mode is active close the sensors service
+        if(Horn.energy_saver) { //if energy saver mode is active close the sensors service
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             stopService(intent);
         }
@@ -124,7 +126,7 @@ public class SensorActivity extends AppCompatActivity {
 
     //Click the top left arrow activates this method
     public void onBackPressed(){
-        if(Sensors.Horn.energy_saver) { //if energy saver mode is active close the sensors service
+        if(Horn.energy_saver) { //if energy saver mode is active close the sensors service
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             stopService(intent);
         }

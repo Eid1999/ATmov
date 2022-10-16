@@ -16,6 +16,11 @@
             android:name=".Sensors"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:enabled="true"
+            android:name=".ExitService"
+            android:exported="false"
+            android:stopWithTask="false" />
         <receiver
             android:name=".SensorActivity"
             android:enabled="true"

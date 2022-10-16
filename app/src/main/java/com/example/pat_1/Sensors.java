@@ -1,5 +1,8 @@
 package com.example.pat_1;
 
+import static com.example.pat_1.MainActivity.Horn;
+import static com.example.pat_1.MainActivity.repo;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -34,14 +37,13 @@ public class Sensors extends Service implements SensorEventListener {
     public Sensor envSense,temp , light, hum;
     public float Slight,Shum,Stemp;
 
-    public static RepoStorage repo = new RepoStorage();
+
     boolean ext_detected;
     int[] repo_size =  {0, 0, 0};
     long time_millis;
-    public static Alarm Horn = new Alarm();
+
 
     Context context;
-    public static final String FILE_NAME = "Pat_1Storage";
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -257,42 +259,17 @@ public class Sensors extends Service implements SensorEventListener {
     }
 
     public void onDestroy(){
-        writeData();
         sensorManager.unregisterListener(this);
         this.stopSelf();
     }
 
     //if user closes the app write all the data in a file and stop the sensors service
     public void onTaskRemoved (Intent rootIntent) {
-        writeData();
         sensorManager.unregisterListener(this);
         this.stopSelf();
     }
 
-    //Method used to write the data into a file
-    public void writeData () {
-        try  {
-            FileOutputStream fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
-            ObjectOutputStream Objfos = new ObjectOutputStream (fos);
-            Object [] storeList = new Object [2]; //create a list with the objects that we want to save
-            storeList [0] = repo;                 //(its better to create a list because now we know exactly how and where the data is saved)
-            storeList [1] = Horn;
-            Objfos.writeObject(storeList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    //Method used to read the data of a file
-    public Object readData() {
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            return new ObjectInputStream(fis).readObject(); //If we can read something return the object read, else return null.
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
 
 
