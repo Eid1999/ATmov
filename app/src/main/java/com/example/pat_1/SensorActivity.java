@@ -112,16 +112,19 @@ public class SensorActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
-    public void goback(View view){
 
-        if(Sensors.Horn.energy_saver) {
+    //Go back, without clicking the top left arrow, activates this method
+    public void goback(View view){
+        if(Sensors.Horn.energy_saver) { //if energy saver mode is active close the sensors service
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             stopService(intent);
         }
         finish();
     }
+
+    //Click the top left arrow activates this method
     public void onBackPressed(){
-        if(Sensors.Horn.energy_saver) {
+        if(Sensors.Horn.energy_saver) { //if energy saver mode is active close the sensors service
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             stopService(intent);
         }

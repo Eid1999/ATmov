@@ -26,4 +26,7 @@
     <string name="Reset">Reset Repository</string>
     <string name="repo_min">Recorded Minimum:</string>
     <string name="repo_max">Recorded Maximum:</string>
+    <string name="temp">Temperature</string>
+    <string name="light">Light</string>
+    <string name="hum">Humidity</string>
 </resources>

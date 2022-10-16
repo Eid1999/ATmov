@@ -53,16 +53,6 @@ public class Sensors extends Service implements SensorEventListener {
         sensorManager.registerListener(this, light, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, hum, SensorManager.SENSOR_DELAY_NORMAL);
 
-        //Object []data;
-        //data = (Object[]) readData();
-
-        //if (data != null){
-        //    repo = (RepoStorage) data [0];
-        // Horn = (Alarm) data [1];
-        //}
-
-
-
         return flags;
     }
 
@@ -114,10 +104,11 @@ public class Sensors extends Service implements SensorEventListener {
                 // REPOSITORY SECTION -> Store new event and delete oldest one
                 if (repo_size[0] == 0 || time_millis >= repo.temp_repo.get(repo_size[0] - 1).time_millis + 5000 || ext_detected){
 
+                    //check if the temp alarm is On
                     if (Horn.TempSwitch) {
-                        if (sensorValue < Horn.minTemp) {
+                        if (sensorValue < Horn.minTemp) { //check if the sensor value surpasses the minTemp threshold defined by the user
                             onAlarm("minT");
-                        } else if (sensorValue > Horn.maxTemp){
+                        } else if (sensorValue > Horn.maxTemp){ //check if the sensor value surpasses the maxTemp threshold defined by the user
                             onAlarm("maxT");
                         }
                     }
@@ -152,10 +143,11 @@ public class Sensors extends Service implements SensorEventListener {
                 // REPOSITORY SECTION -> Store new event and delete oldest one
                 if (repo_size[1] == 0 || time_millis >= repo.light_repo.get(repo_size[1] - 1).time_millis + 5000 || ext_detected){
 
+                    //check if the temp alarm is On
                     if (Horn.LumSwitch) {
-                        if (sensorValue < Horn.minLum) {
+                        if (sensorValue < Horn.minLum) { //check if the sensor value surpasses the minLum threshold defined by the user
                             onAlarm("minL");
-                        } else if (sensorValue > Horn.maxLum){
+                        } else if (sensorValue > Horn.maxLum){ //check if the sensor value surpasses the maxLum threshold defined by the user
                             onAlarm("maxL");
                         }
                     }
@@ -187,10 +179,11 @@ public class Sensors extends Service implements SensorEventListener {
                 // REPOSITORY SECTION -> Store new event and delete oldest one
                 if (repo_size[2] == 0 || time_millis >= repo.humid_repo.get(repo_size[2] - 1).time_millis + 5000 || ext_detected){
 
+                    //check if the temp alarm is On
                     if (Horn.HumSwitch) {
-                        if (sensorValue < Horn.minHum) {
+                        if (sensorValue < Horn.minHum) { //check if the sensor value surpasses the minHum threshold defined by the user
                             onAlarm("minH");
-                        } else if (sensorValue > Horn.maxHum){
+                        } else if (sensorValue > Horn.maxHum){ //check if the sensor value surpasses the maxHum threshold defined by the user
                             onAlarm("maxH");
                         }
                     }
@@ -210,6 +203,8 @@ public class Sensors extends Service implements SensorEventListener {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
     }
+
+    //Messages if a sensor value surpasses the threshold value defined by the user
     public void onAlarm (String type) {
         String accuracyMsg = "";
         switch(type){
@@ -260,23 +255,27 @@ public class Sensors extends Service implements SensorEventListener {
         Toast accuracyToast = Toast.makeText(this.getApplicationContext(), accuracyMsg, Toast.LENGTH_SHORT);
         accuracyToast.show();
     }
+
     public void onDestroy(){
         writeData();
         sensorManager.unregisterListener(this);
         this.stopSelf();
     }
+
+    //if user closes the app write all the data in a file and stop the sensors service
     public void onTaskRemoved (Intent rootIntent) {
         writeData();
         sensorManager.unregisterListener(this);
         this.stopSelf();
     }
 
+    //Method used to write the data into a file
     public void writeData () {
         try  {
             FileOutputStream fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
             ObjectOutputStream Objfos = new ObjectOutputStream (fos);
-            Object [] storeList = new Object [2];
-            storeList [0] = repo;
+            Object [] storeList = new Object [2]; //create a list with the objects that we want to save
+            storeList [0] = repo;                 //(its better to create a list because now we know exactly how and where the data is saved)
             storeList [1] = Horn;
             Objfos.writeObject(storeList);
         } catch (IOException e) {
@@ -284,10 +283,11 @@ public class Sensors extends Service implements SensorEventListener {
         }
     }
 
+    //Method used to read the data of a file
     public Object readData() {
         try {
             FileInputStream fis = openFileInput(FILE_NAME);
-            return new ObjectInputStream(fis).readObject();
+            return new ObjectInputStream(fis).readObject(); //If we can read something return the object read, else return null.
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
             return null;

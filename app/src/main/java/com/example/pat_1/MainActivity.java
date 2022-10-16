@@ -1,3 +1,13 @@
+/*
+*  ATMov Sensor Application Project *
+*
+* Authors:
+* André Ferreira 96158
+* João Santos 96242
+* Pedro Eid 91592
+*
+* */
+
 package com.example.pat_1;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user taps the Alarm Threshold button */
     public void change_threshold(View view) {
-        Intent intent = new Intent(this, threshold_alarm.class);
+        Intent intent = new Intent(this, ThresholdAlarmActivity.class);
         startActivity(intent);
     }
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#22C39D"
     android:onClick="keepThreshold"
-    tools:context=".threshold_alarm">
+    tools:context=".ThresholdAlarmActivity">
 
     <Button
         android:id="@+id/button8"
@@ -155,16 +155,16 @@
         android:id="@+id/energy"
         android:layout_width="192dp"
         android:layout_height="41dp"
-        android:layout_marginTop="356dp"
-        android:text="Energy Managenmet"
+        android:layout_marginBottom="200dp"
+        android:text="Energy Management"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toggleButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/minTemp"
@@ -267,10 +267,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ToggleButton"
-        app:layout_constraintBottom_toBottomOf="@+id/energy"
+        app:layout_constraintBaseline_toBaselineOf="@+id/energy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/energy"
-        app:layout_constraintTop_toTopOf="@+id/energy" />
+        app:layout_constraintStart_toEndOf="@+id/energy" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
