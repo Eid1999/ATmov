@@ -52,14 +52,8 @@ public class SensorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
 
-        // Get an instance of the sensor service, and use that to get an instance of
-        // a particular sensor.
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        temp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
-        light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        hum = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-        if(Sensors.Horn.energy_saver) {
+        if(Sensors.Horn.energy_saver) {//Start Sensors Sevices(ENERGY MODE ON)
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             startService(intent);
         }
@@ -71,28 +65,31 @@ public class SensorActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
-                new IntentFilter("Sensors"));
+                new IntentFilter("Sensors"));//Create Receiver of Service
 
     }
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, Intent intent) { //Reiceves informantion from the broadcast and distinguish with type it is (from with sensor)
 
             float envInfo;
             String className = intent.getStringExtra("Class");
             switch (className) {
 
                 case "Temp":
+                    //Writes information of the Temperature Sensor on the interface
                     envInfo = intent.getFloatExtra("Stemp",-1);
                     TextView txtView = findViewById(R.id.txtTEMP);
                     txtView.setText(" " + envInfo +" ºC");
                     break;
 
                 case "Light":
+                    //Writes information of the Light Sensor on the interface
                     envInfo = intent.getFloatExtra("Slight",-1);
                     TextView txtView2 = findViewById(R.id.txtLIGHT);
                     txtView2.setText(" " + envInfo +" lm");
                     break;
                 case "Humidity":
+                    //Writes information of the Humidity Sensor on the interface
                     envInfo = intent.getFloatExtra("Shum",-1);
                     TextView txtView3 = findViewById(R.id.txtHUM);
                     txtView3.setText(" " + envInfo+" %");
@@ -107,7 +104,7 @@ public class SensorActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onDestroy() {
+    protected void onDestroy() { //Removes Broadcast
         // Unregister since the activity is about to be closed.
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         super.onDestroy();

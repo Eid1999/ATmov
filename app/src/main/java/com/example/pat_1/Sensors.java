@@ -44,6 +44,7 @@ public class Sensors extends Service implements SensorEventListener {
     public static final String FILE_NAME = "Pat_1Storage";
 
     public int onStartCommand(Intent intent, int flags, int startId) {
+        //Create and start listening to  the Sensors
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         temp = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -68,7 +69,6 @@ public class Sensors extends Service implements SensorEventListener {
         Intent intent = new Intent("Sensors");
 
         // Do something with this sensor data.
-        String envInfo;
         int currType=event.sensor.getType();
 
         // REPOSITORY SECTION -> Handle event time and format it to be stored in the Repository
@@ -84,8 +84,9 @@ public class Sensors extends Service implements SensorEventListener {
         RepoValues new_event = new RepoValues(time, sensorValue, time_millis);
         ext_detected = false;
 
-        switch(currType){
+        switch(currType){//Find what type of Sensor it is
             case Sensor.TYPE_AMBIENT_TEMPERATURE:
+                //Save information of the sensor
                 Stemp=sensorValue;
                 intent.putExtra("Stemp", Stemp);
                 intent.putExtra("Class","Temp");
@@ -124,6 +125,7 @@ public class Sensors extends Service implements SensorEventListener {
                 break;
 
             case Sensor.TYPE_LIGHT:
+                //Save information of the sensor
                 Slight=sensorValue;
                 intent.putExtra("Slight", Slight);
                 intent.putExtra("Class","Light");
@@ -161,6 +163,7 @@ public class Sensors extends Service implements SensorEventListener {
 
                 break;
             case Sensor.TYPE_RELATIVE_HUMIDITY:
+                //Save information of the sensor
                 Shum=sensorValue;
                 intent.putExtra("Shum", Shum);
                 intent.putExtra("Class","Humidity");
@@ -200,7 +203,7 @@ public class Sensors extends Service implements SensorEventListener {
 
 
         }
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);//Send information of the sensor
 
     }
 
@@ -234,7 +237,7 @@ public class Sensors extends Service implements SensorEventListener {
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {//Send message of accuracy of the sensor
         String accuracyMsg = "";
         switch(accuracy){
             case SensorManager.SENSOR_STATUS_ACCURACY_HIGH:
@@ -256,7 +259,7 @@ public class Sensors extends Service implements SensorEventListener {
         accuracyToast.show();
     }
 
-    public void onDestroy(){
+    public void onDestroy(){//If the service is stopped then stop listening to sensors and write data
         writeData();
         sensorManager.unregisterListener(this);
         this.stopSelf();

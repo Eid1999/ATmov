@@ -32,7 +32,7 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
 
         Spinner drop_menu = (Spinner) findViewById(R.id.dropdown_menu);
         drop_menu.setOnItemSelectedListener(this);
-        if(Sensors.Horn.energy_saver) {
+        if(Sensors.Horn.energy_saver) {//Start Sensors Sevices(ENERGY MODE ON)
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             startService(intent);
         }
@@ -253,14 +253,14 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
 
     public void goback(View view){
 
-        if(Sensors.Horn.energy_saver) {
+        if(Sensors.Horn.energy_saver) {//if energy saver mode is active close the sensors service
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             stopService(intent);
         }
         finish();
     }
     public void onBackPressed(){
-        if(Sensors.Horn.energy_saver) {
+        if(Sensors.Horn.energy_saver) {//if energy saver mode is active close the sensors service
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             stopService(intent);
         }
@@ -269,5 +269,4 @@ public class RepositoryActivity extends AppCompatActivity implements AdapterView
 }
 
 
-    // create button to reset repository, maximums and minimums
 

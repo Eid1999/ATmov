@@ -35,14 +35,14 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN); //enable full screen
 
         Object []data;
-        data = (Object[]) readData();
+        data = (Object[]) readData(); //Read file with saved data from last session
 
-        if (data != null){
+        if (data != null){ //Iniciate Global Variables with data from file
             Sensors.repo = (RepoStorage) data [0];
             Sensors.Horn = (Alarm) data [1];
         }
         setContentView(R.layout.activity_main);
-        if(Sensors.Horn==null||Sensors.Horn.energy_saver==false) {
+        if(Sensors.Horn==null||!Sensors.Horn.energy_saver) {//Activite the Sensor Service if energy save mode turn off
             Intent intent = new Intent(getApplicationContext(), Sensors.class);
             startService(intent);
         }
@@ -51,25 +51,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
     /** Called when the user taps the Show Sensors button */
-    public void show_sensors(View view) {
+    public void show_sensors(View view) {//Sensor Acitvity
         Intent intent = new Intent(this, SensorActivity.class);
         startActivity(intent);
     }
 
     /** Called when the user taps the Alarm Threshold button */
-    public void change_threshold(View view) {
+    public void change_threshold(View view) {//Threshold(Settings) Activity
         Intent intent = new Intent(this, ThresholdAlarmActivity.class);
         startActivity(intent);
     }
 
     /** Called when the user taps the Show Repository button */
-    public void show_repository(View view) {
+    public void show_repository(View view) {//Repository Acitivity
         Intent intent = new Intent(this, RepositoryActivity.class);
         startActivity(intent);
     }
 
 
-    public Object readData() {
+    public Object readData() {//Read File
         try {
             FileInputStream fis = openFileInput(Sensors.FILE_NAME);
             return new ObjectInputStream(fis).readObject();
